@@ -7,11 +7,10 @@ const filmsStore = useFilmsStore();
 const heartFilled = ref(true);
 
 
-const addToFavorites = (film: any) => {
-    filmsStore.addToCurrentlyWatching(film);
-    heartFilled.value = !heartFilled.value; // Обновляем значение heartFilled при добавлении в избранное
+const addToFavorites = (index: number, film: any) => {
+    filmsStore.addToCurrentlyWatching(index, film);
+    heartFilled.value = !heartFilled.value;
 };
-
 
 
 const fetchPreviosly = async () => {
@@ -42,11 +41,12 @@ onMounted(() => {
         </h4>
         <div class="flex flex-row gap-y-5">
             <Swiper :slides-per-view="7" :space-between="50" :loop="true" :speed="1300">
-                <SwiperSlide class="relative" v-for="item in filmsStore.films" :key="item.nameRu">
+                <SwiperSlide class="relative" v-for="(item, index) in filmsStore.films" :key="item.nameRu">
                     <div class="relative">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
-                        <UiButton class="absolute top-2 left-0 " variant="link" @click="addToFavorites(item)">
-                            <Icon :name="heartFilled ? 'line-md:heart' : 'line-md:heart-filled'" color="white" size="30" />
+                        <UiButton class="absolute top-2 left-0 " variant="link" @click="addToFavorites(index, item)">
+                            <Icon :name="item.isFavorite ? 'line-md:heart-filled' : 'line-md:heart'"
+                                :color="item.isFavorite ? 'red' : 'white'" size="30" />
                         </UiButton>
                     </div>
                 </SwiperSlide>

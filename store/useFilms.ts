@@ -6,6 +6,7 @@ export interface IFilms {
   ratingImdb: number;
   year: number;
   addToCurrentlyWatching: any;
+  isFavorite: boolean;
 }
 
 export const useFilmsStore = defineStore({
@@ -27,8 +28,9 @@ export const useFilmsStore = defineStore({
     addFilms(film: IFilms) {
       this.films.push(film);
     },
-    addToCurrentlyWatching(film: IFilms) {
-      this.currentlyWatching.push(film);
+    addToCurrentlyWatching(index: number, film: IFilms) {
+      film.isFavorite = true;
+      this.currentlyWatching.splice(index, 0, film);
     },
   },
 });
