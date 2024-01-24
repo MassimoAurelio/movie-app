@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
+    "nuxt-primevue",
     "@nuxt/image",
     "@pinia/nuxt",
     "nuxt-icon",
