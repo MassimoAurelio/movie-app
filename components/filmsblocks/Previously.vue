@@ -4,12 +4,18 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 
 const filmsStore = useFilmsStore();
-const heartFilled = ref(true);
 
+const heartFilled = (film: IFilms) => computed(() => filmsStore.currentlyWatching.some(f => f.nameRu === film.nameRu));
 
 const addToFavorites = (index: number, film: any) => {
-    filmsStore.addToCurrentlyWatching(index, film);
-    heartFilled.value = !heartFilled.value;
+    const isAlreadyAdded = filmsStore.currentlyWatching.some(f => f.nameRu === film.nameRu);
+
+    if (!isAlreadyAdded) {
+        filmsStore.addToCurrentlyWatching(index, film);
+    } else {
+        const filmIndex = filmsStore.currentlyWatching.findIndex(f => f.nameRu === film.nameRu);
+        filmsStore.removeCurrently(filmIndex);
+    }
 };
 
 
@@ -45,8 +51,8 @@ onMounted(() => {
                     <div class="relative">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
                         <UiButton class="absolute top-2 left-0 " variant="link" @click="addToFavorites(index, item)">
-                            <Icon :name="item.isFavorite ? 'line-md:heart-filled' : 'line-md:heart'"
-                                :color="item.isFavorite ? 'red' : 'white'" size="30" />
+                            <Icon :name="heartFilled(item).value ? 'line-md:heart-filled' : 'line-md:heart'"
+                                :color="heartFilled(item).value ? 'red' : 'white'" size="30" />
                         </UiButton>
                     </div>
                 </SwiperSlide>

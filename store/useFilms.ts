@@ -19,18 +19,15 @@ export const useFilmsStore = defineStore({
     setFilms(films: IFilms[]) {
       this.films = films;
     },
-    setCurrently(current: IFilms[]) {
-      this.currentlyWatching = current;
-    },
     removeCurrently(index: number) {
       this.currentlyWatching.splice(index, 1);
     },
-    addFilms(film: IFilms) {
-      this.films.push(film);
-    },
     addToCurrentlyWatching(index: number, film: IFilms) {
-      film.isFavorite = true;
-      this.currentlyWatching.splice(index, 0, film);
+      const filmInStore = this.films.find((f) => f.nameRu === film.nameRu);
+      if (filmInStore) {
+        filmInStore.isFavorite = true;
+      }
+      this.currentlyWatching.push(film);
     },
   },
 });

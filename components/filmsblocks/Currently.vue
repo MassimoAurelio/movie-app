@@ -5,7 +5,13 @@ import 'swiper/css'
 
 const filmsStore = useFilmsStore()
 
+
 const removeFromCurrentlyWatching = (index: number) => {
+    const filmToRemove = filmsStore.currentlyWatching[index];
+    const filmInStore = filmsStore.films.find(f => f.nameRu === filmToRemove.nameRu);
+    if (filmInStore) {
+        filmInStore.isFavorite = false;
+    }
     filmsStore.removeCurrently(index);
 }
 </script>
@@ -27,8 +33,14 @@ const removeFromCurrentlyWatching = (index: number) => {
 
             <div v-else class="flex flex-row gap-5">
                 <div class="w-44 h-64 rounded-xl" v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu">
-                    <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
-                    <UiButton @click="removeFromCurrentlyWatching(index)">REMOVE</UiButton>
+                    <div class="relative">
+                        <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
+                        <UiButton variant="link" class="absolute top-2 left-0 " @click="removeFromCurrentlyWatching(index)">
+                            <Icon :name="item.isFavorite ? 'line-md:heart-filled' : 'line-md:heart'"
+                                :color="item.isFavorite ? 'red' : 'white'" size="30" />
+                        </UiButton>
+                    </div>
+
                 </div>
             </div>
         </div>
