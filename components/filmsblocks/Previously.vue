@@ -23,7 +23,7 @@ const addToFavorites = (index: number, film: any) => {
 const slidesPerView = computed(() => {
     switch (screenStore.platform) {
         case 'desctope':
-            return 7;
+            return 10;
         case 'tablet':
             return 5;
         case 'tablet2':
@@ -33,7 +33,7 @@ const slidesPerView = computed(() => {
         case 'mobile2':
             return 2
         default:
-            return 7;
+            return 10;
     }
 });
 
@@ -65,7 +65,7 @@ onMounted(() => {
             Previously Watched
         </h4>
         <div class="flex flex-row gap-y-5">
-            <Swiper :slides-per-view="slidesPerView" :space-between="50" :loop="true" :speed="1300">
+            <Swiper :slides-per-view="slidesPerView" :space-between="10" :loop="true" :speed="1300">
                 <SwiperSlide class="relative" v-for="(item, index) in filmsStore.films" :key="item.nameRu">
                     <div class="relative">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />

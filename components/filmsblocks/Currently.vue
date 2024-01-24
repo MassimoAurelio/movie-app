@@ -18,19 +18,36 @@ const removeFromCurrentlyWatching = (index: number) => {
     filmsStore.removeCurrently(index);
 }
 
+const slidesPerView = computed(() => {
+    switch (screenStore.platform) {
+        case 'desctope':
+            return 10;
+        case 'tablet':
+            return 5;
+        case 'tablet2':
+            return 4;
+        case 'mobile':
+            return 2
+        case 'mobile2':
+            return 2
+        default:
+            return 10;
+    }
+});
+
 
 </script>
 
 <template>
-    <div class="flex flex-col gap-y-5 max-w-xl">
+    <div class="flex flex-col justify-items-start gap-10 w-full h-96">
         <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
             Currently Watching
         </h4>
-        <div class="flex flex-row gap-5">
-            <Swiper v-if="filmsStore.currentlyWatching.length > 3" :slides-per-view="3" :space-between="50" :loop="true"
-                :speed="1300">
+        <div v-if='filmsStore.currentlyWatching.length >= 10' class="flex flex-row gap-y-5">
+            <Swiper :slides-per-view="Math.min(filmsStore.currentlyWatching.length, slidesPerView)" :space-between="10"
+                :loop="true" :speed="1300">
                 <SwiperSlide v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu"
-                    class="flex flex-col items-center w-44 h-64">
+                    class="flex flex-col items-center w-44 h-64 relative">
                     <div class="relative">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
                         <UiButton variant="link" class="absolute top-2 left-0" @click="removeFromCurrentlyWatching(index)">
@@ -40,18 +57,18 @@ const removeFromCurrentlyWatching = (index: number) => {
                     </div>
                 </SwiperSlide>
             </Swiper>
+        </div>
 
-            <div v-else class="flex flex-row gap-5">
-                <div class="w-44 h-64 rounded-xl" v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu">
-                    <div class="relative">
-                        <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
-                        <UiButton variant="link" class="absolute top-2 left-0 " @click="removeFromCurrentlyWatching(index)">
-                            <Icon :name="item.isFavorite ? 'line-md:heart-filled' : 'line-md:heart'"
-                                :color="item.isFavorite ? 'red' : 'white'" size="30" />
-                        </UiButton>
-                    </div>
-
+        <div v-else class="flex flex-row gap-5">
+            <div class="w-44 h-64 rounded-xl" v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu">
+                <div class="relative">
+                    <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
+                    <UiButton variant="link" class="absolute top-2 left-0 " @click="removeFromCurrentlyWatching(index)">
+                        <Icon :name="item.isFavorite ? 'line-md:heart-filled' : 'line-md:heart'"
+                            :color="item.isFavorite ? 'red' : 'white'" size="30" />
+                    </UiButton>
                 </div>
+
             </div>
         </div>
     </div>

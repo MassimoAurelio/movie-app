@@ -1,7 +1,7 @@
 export const useScreenStore = defineStore("screen", () => {
   const platform = ref<
     "desctope" | "tablet" | "tablet2" | "mobile" | "mobile2"
-  >("desctop");
+  >("desctope");
 
   const setPlatform = (width: number) => {
     if (width >= 1250) return (platform.value = "desctope");
