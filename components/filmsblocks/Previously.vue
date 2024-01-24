@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useFilmsStore } from '@/store/useFilms';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import { useScreenStore } from '@/store/useScreen'
 import 'swiper/css';
 
 const filmsStore = useFilmsStore();
+const screenStore = useScreenStore()
 
 const heartFilled = (film: IFilms) => computed(() => filmsStore.currentlyWatching.some(f => f.nameRu === film.nameRu));
 
@@ -17,6 +19,23 @@ const addToFavorites = (index: number, film: any) => {
         filmsStore.removeCurrently(filmIndex);
     }
 };
+
+const slidesPerView = computed(() => {
+    switch (screenStore.platform) {
+        case 'desctope':
+            return 7;
+        case 'tablet':
+            return 5;
+        case 'tablet2':
+            return 4;
+        case 'mobile':
+            return 2
+        case 'mobile2':
+            return 2
+        default:
+            return 7;
+    }
+});
 
 
 const fetchPreviosly = async () => {
@@ -46,7 +65,7 @@ onMounted(() => {
             Previously Watched
         </h4>
         <div class="flex flex-row gap-y-5">
-            <Swiper :slides-per-view="7" :space-between="50" :loop="true" :speed="1300">
+            <Swiper :slides-per-view="slidesPerView" :space-between="50" :loop="true" :speed="1300">
                 <SwiperSlide class="relative" v-for="(item, index) in filmsStore.films" :key="item.nameRu">
                     <div class="relative">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />

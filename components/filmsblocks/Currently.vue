@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useFilmsStore } from '@/store/useFilms'
+import { useScreenStore } from '@/store/useScreen'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 
 const filmsStore = useFilmsStore()
+const screenStore = useScreenStore()
+const { platform } = storeToRefs(screenStore)
 
 
 const removeFromCurrentlyWatching = (index: number) => {
@@ -14,6 +17,8 @@ const removeFromCurrentlyWatching = (index: number) => {
     }
     filmsStore.removeCurrently(index);
 }
+
+
 </script>
 
 <template>
@@ -26,8 +31,13 @@ const removeFromCurrentlyWatching = (index: number) => {
                 :speed="1300">
                 <SwiperSlide v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu"
                     class="flex flex-col items-center w-44 h-64">
-                    <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
-                    <UiButton @click="removeFromCurrentlyWatching(index)">REMOVE</UiButton>
+                    <div class="relative">
+                        <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
+                        <UiButton variant="link" class="absolute top-2 left-0" @click="removeFromCurrentlyWatching(index)">
+                            <Icon :name="item.isFavorite ? 'line-md:heart-filled' : 'line-md:heart'"
+                                :color="item.isFavorite ? 'red' : 'white'" size="30" />
+                        </UiButton>
+                    </div>
                 </SwiperSlide>
             </Swiper>
 
