@@ -21,29 +21,28 @@ const removeFromCurrentlyWatching = (index: number) => {
 const slidesPerView = computed(() => {
     switch (screenStore.platform) {
         case 'desctope':
-            return 10;
-        case 'tablet':
-            return 5;
-        case 'tablet2':
             return 4;
+        case 'tablet':
+            return 2;
+        case 'tablet2':
+            return 2;
         case 'mobile':
-            return 2
+            return 1
         case 'mobile2':
-            return 2
+            return 1
         default:
-            return 10;
+            return 3;
     }
 });
-
 
 </script>
 
 <template>
-    <div class="flex flex-col justify-items-start gap-10 w-full h-96">
+    <div class="flex flex-col justify-items-start gap-10 w-2/5 h-96">
         <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
             Currently Watching
         </h4>
-        <div v-if='filmsStore.currentlyWatching.length >= 10' class="flex flex-row gap-y-5">
+        <div v-if='filmsStore.currentlyWatching.length >= 4' class="flex flex-row gap-y-5">
             <Swiper :slides-per-view="Math.min(filmsStore.currentlyWatching.length, slidesPerView)" :space-between="10"
                 :loop="true" :speed="1300">
                 <SwiperSlide v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu"

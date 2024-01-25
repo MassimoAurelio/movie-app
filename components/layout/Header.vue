@@ -4,9 +4,6 @@ import { useScreenStore } from '@/store/useScreen'
 const screenStore = useScreenStore()
 
 
-const openSearch = () => {
-
-}
 
 const searchSize = computed(() => {
     switch (screenStore.platform) {

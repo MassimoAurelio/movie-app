@@ -6,6 +6,7 @@ import 'swiper/css';
 
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore()
+const router = useRouter();
 
 const heartFilled = (film: IFilms) => computed(() => filmsStore.currentlyWatching.some(f => f.nameRu === film.nameRu));
 
@@ -20,10 +21,14 @@ const addToFavorites = (index: number, film: any) => {
     }
 };
 
+const handleCardClick = (kinopoiskId: number) => {
+    router.push(`/films/${kinopoiskId}`);
+};
+
 const slidesPerView = computed(() => {
     switch (screenStore.platform) {
         case 'desctope':
-            return 10;
+            return 9;
         case 'tablet':
             return 5;
         case 'tablet2':
@@ -33,7 +38,7 @@ const slidesPerView = computed(() => {
         case 'mobile2':
             return 2
         default:
-            return 10;
+            return 9;
     }
 });
 
@@ -47,6 +52,7 @@ const fetchPreviosly = async () => {
             },
         });
         const { items } = await response.json();
+        console.log(items);
         const filterData = items.filter((item: { nameRu: string | null }) => item.nameRu !== null);
         filmsStore.setFilms(filterData);
     } catch (error) {
@@ -62,12 +68,12 @@ onMounted(() => {
 <template>
     <div class="flex flex-col gap-10">
         <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
-            Previously Watched
+            Suggested To Watch
         </h4>
         <div class="flex flex-row gap-y-5 cursor-pointer">
             <Swiper :slides-per-view="slidesPerView" :space-between="15" :loop="true" :speed="1300">
                 <SwiperSlide class="relative" v-for="(item, index) in filmsStore.films" :key="item.nameRu">
-                    <div class="relative">
+                    <div class="relative" @click="handleCardClick(item.kinopoiskId)">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
                         <UiButton class="absolute top-2 left-0  " variant="link" @click="addToFavorites(index, item)">
                             <Icon :name="heartFilled(item).value ? 'line-md:heart-filled' : 'line-md:heart'"
