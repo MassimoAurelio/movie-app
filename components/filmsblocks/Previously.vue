@@ -73,9 +73,9 @@ onMounted(() => {
         <div class="flex flex-row gap-y-5 cursor-pointer">
             <Swiper :slides-per-view="slidesPerView" :space-between="15" :loop="true" :speed="1300">
                 <SwiperSlide class="relative" v-for="(item, index) in filmsStore.films" :key="item.nameRu">
-                    <div class="relative" @click="handleCardClick(item.kinopoiskId)">
+                    <div class="relative" @click.stop="handleCardClick(item.kinopoiskId)">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
-                        <UiButton class="absolute top-2 left-0  " variant="link" @click="addToFavorites(index, item)">
+                        <UiButton class="absolute top-2 left-0" variant="link" @click.stop="addToFavorites(index, item)">
                             <Icon :name="heartFilled(item).value ? 'line-md:heart-filled' : 'line-md:heart'"
                                 :color="heartFilled(item).value ? 'red' : 'white'" size="30" />
                         </UiButton>
