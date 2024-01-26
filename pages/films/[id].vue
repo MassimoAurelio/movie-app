@@ -12,6 +12,20 @@ const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
 const { platform } = storeToRefs(screenStore);
 
+const isInWatchlist = computed(() => Array.isArray(filmsStore.watchlist) && filmsStore.watchlist.some(f => f.nameRu === filmsStore.dynamic.nameRu));
+
+const addToWatchList = (film: any) => {
+    const index = filmsStore.films.indexOf(film);
+    const isAlreadyAdded = filmsStore.watchlist.some(f => f.nameRu === film.nameRu);
+
+    if (!isAlreadyAdded) {
+        filmsStore.addToWatchList(index, film);
+    } else {
+        const filmIndex = filmsStore.watchlist.findIndex(f => f.nameRu === film.nameRu);
+        filmsStore.removeCurrently(filmIndex);
+    }
+};
+
 
 const dinamicPage = async (kinopoiskId: number) => {
     try {
@@ -26,6 +40,7 @@ const dinamicPage = async (kinopoiskId: number) => {
 
         const data = await response.json();
         filmsStore.setDynamic(data);
+        console.log(filmsStore.watchlist)
     } catch (error) {
         console.error("WARNING:", error);
     }
@@ -69,7 +84,18 @@ onMounted(() => {
                     </div>
                 </div>
             </div>
+            <div class="absolute right-0">
+                <div class="flex flex-row justify-center items-center">
+                    Add watchlist
+                    <UiButton variant="link" @click="() => addToWatchList(filmsStore.dynamic)">
+                        <Icon :name="isInWatchlist ? 'line-md:heart-filled' : 'line-md:heart'"
+                            :color="isInWatchlist ? 'red' : 'white'" size="30" />
+                    </UiButton>
+                </div>
+
+
+            </div>
         </div>
-        <div class="absolute right-0"></div>
+
     </div>
 </template>

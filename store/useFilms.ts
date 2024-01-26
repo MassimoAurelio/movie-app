@@ -7,6 +7,7 @@ export interface IFilms {
   year: number;
   addToCurrentlyWatching: any;
   isFavorite: boolean;
+  isWatchList: boolean;
   kinopoiskId: number;
   description: string;
   genres: { genre: string }[];
@@ -17,7 +18,7 @@ export const useFilmsStore = defineStore({
   state: () => ({
     films: [] as IFilms[],
     currentlyWatching: [] as IFilms[],
-    suggested: [] as IFilms[],
+    watchlist: [] as IFilms[],
     dynamic: {} as IFilms,
   }),
   actions: {
@@ -35,7 +36,14 @@ export const useFilmsStore = defineStore({
       this.currentlyWatching.push(film);
     },
     setSuggested(suggested: IFilms[]) {
-      this.suggested = suggested;
+      this.watchlist = suggested;
+    },
+    addToWatchList(index: number, film: IFilms) {
+      const filmInStore = this.watchlist.find((f) => f.nameRu === film.nameRu);
+      if (filmInStore) {
+        filmInStore.isWatchList = true;
+      }
+      this.watchlist.push(film);
     },
     setDynamic(dynamic: IFilms) {
       this.dynamic = dynamic;

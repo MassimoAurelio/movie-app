@@ -37,11 +37,12 @@ onMounted(() => {
             Viewed
         </h4>
         <div class="flex flex-row gap-5">
-            <div class="w-44 h-64 rounded-xl">
-                <!-- <div class="relative">
-                    <NuxtImg :src="filmsStore.suggested.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
-                    <h2>{{ filmsStore.suggested.nameRu }}</h2>
-                </div> -->
+            <div class="w-44 h-64 rounded-xl" v-for="item in filmsStore.watchlist" :key="item.nameRu">
+                <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
+                <UiButton variant="link" class="absolute top-2 left-0 ">
+                    <Icon :name="item.isFavorite ? 'line-md:heart-filled' : 'line-md:heart'"
+                        :color="item.isFavorite ? 'red' : 'white'" size="30" />
+                </UiButton>
             </div>
         </div>
     </div>
