@@ -4,6 +4,7 @@
 <template>
     <section style="min-height: 150vh;">
         <div class="main-container">
+            <LayoutHeader />
             <slot />
         </div>
     </section>

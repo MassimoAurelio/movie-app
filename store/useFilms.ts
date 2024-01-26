@@ -8,6 +8,8 @@ export interface IFilms {
   addToCurrentlyWatching: any;
   isFavorite: boolean;
   kinopoiskId: number;
+  description: string;
+  genres: string;
 }
 
 export const useFilmsStore = defineStore({

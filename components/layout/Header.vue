@@ -25,11 +25,11 @@ const searchSize = computed(() => {
 
 <template>
     <div class="flex items-center mb-3">
-        <h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl grow">
+        <h3 class="text-4xl font-extrabold tracking-tight lg:text-5xl grow">
             <NuxtLink to="/">
                 The<br>Movie<br>Tracker
             </NuxtLink>
-        </h1>
+        </h3>
         <div class="grow">
             <UiButton v-if="screenStore.platform === 'mobile2'" class="rounded-full">
                 <Icon name='material-symbols:search' size="30" />
