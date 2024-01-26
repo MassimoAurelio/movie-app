@@ -10,7 +10,6 @@ useSeoMeta({
 
 <template>
     <div class="flex flex-col gap-10">
-        <!-- <LayoutHeader /> -->
         <FilmsblocksPreviously />
         <div class="flex flex-row relative">
             <FilmsblocksCurrently />

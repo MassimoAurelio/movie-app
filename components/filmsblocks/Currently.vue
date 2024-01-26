@@ -6,8 +6,13 @@ import 'swiper/css'
 
 const filmsStore = useFilmsStore()
 const screenStore = useScreenStore()
+const router = useRouter();
 const { platform } = storeToRefs(screenStore)
 
+
+const handleCardClick = (kinopoiskId: number) => {
+    router.push(`/films/${kinopoiskId}`)
+}
 
 const removeFromCurrentlyWatching = (index: number) => {
     const filmToRemove = filmsStore.currentlyWatching[index];
@@ -60,7 +65,7 @@ const slidesPerView = computed(() => {
 
         <div v-else class="flex flex-row gap-5">
             <div class="w-44 h-64 rounded-xl" v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu">
-                <div class="relative">
+                <div class="relative" @click.stop="handleCardClick(item.kinopoiskId)">
                     <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
                     <UiButton variant="link" class="absolute top-2 left-0 " @click="removeFromCurrentlyWatching(index)">
                         <Icon :name="item.isFavorite ? 'line-md:heart-filled' : 'line-md:heart'"

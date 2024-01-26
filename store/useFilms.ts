@@ -9,7 +9,7 @@ export interface IFilms {
   isFavorite: boolean;
   kinopoiskId: number;
   description: string;
-  genres: string;
+  genres: { genre: string }[];
 }
 
 export const useFilmsStore = defineStore({
