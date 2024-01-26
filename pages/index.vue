@@ -18,12 +18,12 @@ const screenZoom = () => {
 
 <template>
     <div class="flex flex-col gap-10">
-        <FilmsblocksPreviously />
+        <FilmsblocksAllMovies />
         <div class="flex flex-col relative">
-            <FilmsblocksCurrently />
-            <FilmsblocksSuggested v-if="screenStore.platform === 'desctope' || screenStore.platform === 'tablet'"
+            <FilmsblocksLike />
+            <FilmsblocksWatchList v-if="screenStore.platform === 'desctope' || screenStore.platform === 'tablet'"
                 :class="screenZoom()" />
-            <FilmsblocksSuggested v-else />
+            <FilmsblocksWatchList v-else />
         </div>
     </div>
 </template>

@@ -45,6 +45,9 @@ export const useFilmsStore = defineStore({
       }
       this.watchlist.push(film);
     },
+    removeWatchlist(index: number) {
+      this.watchlist.splice(index, 1);
+    },
     setDynamic(dynamic: IFilms) {
       this.dynamic = dynamic;
     },

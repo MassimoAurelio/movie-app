@@ -22,9 +22,10 @@ const addToWatchList = (film: any) => {
         filmsStore.addToWatchList(index, film);
     } else {
         const filmIndex = filmsStore.watchlist.findIndex(f => f.nameRu === film.nameRu);
-        filmsStore.removeCurrently(filmIndex);
+        filmsStore.removeWatchlist(filmIndex);
     }
 };
+
 
 
 const dinamicPage = async (kinopoiskId: number) => {
@@ -88,7 +89,7 @@ onMounted(() => {
                 <div class="flex flex-row justify-center items-center">
                     Add watchlist
                     <UiButton variant="link" @click="() => addToWatchList(filmsStore.dynamic)">
-                        <Icon :name="isInWatchlist ? 'line-md:heart-filled' : 'line-md:heart'"
+                        <Icon :name="isInWatchlist ? 'solar:bookmark-bold' : 'solar:bookmark-broken'"
                             :color="isInWatchlist ? 'red' : 'white'" size="30" />
                     </UiButton>
                 </div>

@@ -50,7 +50,7 @@ const slidesPerView = computed(() => {
         <div v-if='filmsStore.currentlyWatching.length >= 4' class="flex flex-row gap-y-5">
             <Swiper :slides-per-view="Math.min(filmsStore.currentlyWatching.length, slidesPerView)" :space-between="10"
                 :loop="true" :speed="1300">
-                <SwiperSlide v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu"
+                <SwiperSlide v-for="(item, index) in filmsStore.currentlyWatching" :key="item.kinopoiskId"
                     class="flex flex-col items-center w-44 h-64 relative">
                     <div class="relative" @click.stop="handleCardClick(item.kinopoiskId)">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
@@ -65,7 +65,7 @@ const slidesPerView = computed(() => {
         </div>
 
         <div v-else class="flex flex-row gap-5">
-            <div class="w-44 h-64 rounded-xl" v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu">
+            <div class="w-44 h-64 rounded-xl" v-for="(item, index) in filmsStore.currentlyWatching" :key="item.kinopoiskId">
                 <div class="relative" @click.stop="handleCardClick(item.kinopoiskId)">
                     <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
                     <UiButton variant="link" class="absolute top-2 left-0 "
