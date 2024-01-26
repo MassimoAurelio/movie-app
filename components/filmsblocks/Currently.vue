@@ -52,9 +52,9 @@ const slidesPerView = computed(() => {
                 :loop="true" :speed="1300">
                 <SwiperSlide v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu"
                     class="flex flex-col items-center w-44 h-64 relative">
-                    <div class="relative">
+                    <div class="relative" @click.stop="handleCardClick(item.kinopoiskId)">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
-                        <UiButton variant="link" class="absolute top-2 left-0" @click="removeFromCurrentlyWatching(index)">
+                        <UiButton variant="link" class="absolute top-2 left-0" @click.stop="removeFromCurrentlyWatching(index)">
                             <Icon :name="item.isFavorite ? 'line-md:heart-filled' : 'line-md:heart'"
                                 :color="item.isFavorite ? 'red' : 'white'" size="30" />
                         </UiButton>
@@ -67,7 +67,7 @@ const slidesPerView = computed(() => {
             <div class="w-44 h-64 rounded-xl" v-for="(item, index) in filmsStore.currentlyWatching" :key="item.nameRu">
                 <div class="relative" @click.stop="handleCardClick(item.kinopoiskId)">
                     <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
-                    <UiButton variant="link" class="absolute top-2 left-0 " @click="removeFromCurrentlyWatching(index)">
+                    <UiButton variant="link" class="absolute top-2 left-0 " @click.stop="removeFromCurrentlyWatching(index)">
                         <Icon :name="item.isFavorite ? 'line-md:heart-filled' : 'line-md:heart'"
                             :color="item.isFavorite ? 'red' : 'white'" size="30" />
                     </UiButton>

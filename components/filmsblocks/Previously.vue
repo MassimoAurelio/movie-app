@@ -52,7 +52,6 @@ const fetchPreviosly = async () => {
             },
         });
         const { items } = await response.json();
-        console.log(items);
         const filterData = items.filter((item: { nameRu: string | null }) => item.nameRu !== null);
         filmsStore.setFilms(filterData);
     } catch (error) {

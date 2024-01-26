@@ -1,9 +1,17 @@
 <script setup lang="ts">
+import { useScreenStore } from '@/store/useScreen'
 
 useSeoMeta({
     title: "Main Page"
 })
 
+const screenStore = useScreenStore()
+
+const screenZoom = () => {
+    if (screenStore.platform === 'desctope' || screenStore.platform === 'tablet') {
+        return 'absolute right-0'
+    }
+}
 
 
 </script>
@@ -11,9 +19,11 @@ useSeoMeta({
 <template>
     <div class="flex flex-col gap-10">
         <FilmsblocksPreviously />
-        <div class="flex flex-row relative">
+        <div class="flex flex-col relative">
             <FilmsblocksCurrently />
-            <FilmsblocksSuggested class="absolute right-0" />
+            <FilmsblocksSuggested v-if="screenStore.platform === 'desctope' || screenStore.platform === 'tablet'"
+                :class="screenZoom()" />
+            <FilmsblocksSuggested v-else />
         </div>
     </div>
 </template>
