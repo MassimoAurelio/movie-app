@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useFilmsStore } from "@/store/useFilms";
 import { useScreenStore } from "@/store/useScreen";
-
 import ScrollPanel from "primevue/scrollpanel";
-import "swiper/css";
+
 
 const route = useRoute();
 const kinopoiskId = Number(route.params.id);
@@ -25,7 +24,6 @@ const addToWatchList = (film: any) => {
         filmsStore.removeWatchlist(filmIndex);
     }
 };
-
 
 
 const dinamicPage = async (kinopoiskId: number) => {
