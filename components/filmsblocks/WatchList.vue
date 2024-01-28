@@ -30,6 +30,7 @@ const slidesPerView = computed(() => {
         default:
             return 3;
     }
+    
 });
 
 </script>
