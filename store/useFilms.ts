@@ -20,7 +20,7 @@ export const useFilmsStore = defineStore({
     currentlyWatching: [] as IFilms[],
     watchlist: [] as IFilms[],
     dynamic: {} as IFilms,
-    search: [] as IFilms[],
+    query: "",
   }),
   actions: {
     //films
@@ -61,6 +61,19 @@ export const useFilmsStore = defineStore({
     },
 
     //search
-    
+    setQuery(newQuery: string) {
+      this.query = newQuery;
+    },
+
+    getSearchResults() {
+      if (!this.query) {
+        return [];
+      }
+      return this.films.filter(
+        (film) =>
+          film.nameRu.toLowerCase().startsWith(this.query.toLowerCase()) ||
+          film.nameOriginal.toLowerCase().startsWith(this.query.toLowerCase())
+      );
+    },
   },
 });
