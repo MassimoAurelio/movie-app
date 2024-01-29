@@ -25,6 +25,15 @@ const addToWatchList = (film: any) => {
     }
 };
 
+const screenSize = computed(() => {
+    if (screenStore.platform === 'desctope' || screenStore.platform === 'tablet') {
+        return 'flex flex-row item-center gap-3 w-full'
+    }
+    if (screenStore.platform === 'tablet2' || screenStore.platform === 'mobile' || screenStore.platform === 'mobile2') {
+        return 'flex flex-col item-center  gap-3 w-full'
+    }
+})
+
 
 const dinamicPage = async (kinopoiskId: number) => {
     try {
@@ -56,7 +65,7 @@ onMounted(() => {
             {{ filmsStore.dynamic.nameRu }}
         </h1>
         <div class="flex flex-row relative h-72">
-            <div class="flex flex-row gap-3">
+            <div :class="screenSize">
                 <div class="w-56 h-72">
                     <img :src="filmsStore.dynamic.posterUrl" alt="img" class="w-56 h-72 rounded-xl" />
                 </div>
@@ -68,14 +77,14 @@ onMounted(() => {
                             </UiButton>
                         </div>
                     </div>
-                    <div>
+                    <div class="">
                         <ScrollPanel style="width: 50%; height: 150px">
                             <p>
                                 {{ filmsStore.dynamic.description }}
                             </p>
                         </ScrollPanel>
                     </div>
-                    <div class="flex flex-col gap-2 justify-center">
+                    <div class="flex flex-col gap-2 justify-center w-1/2">
                         <p>IMDB Rating</p>
                         <div class="flex flex-row gap-2">
                             <Icon name="twemoji:star" size="20" />{{ filmsStore.dynamic.ratingImdb }}/10
@@ -84,17 +93,13 @@ onMounted(() => {
                 </div>
             </div>
             <div class="absolute right-0">
-                <div class="flex flex-row justify-center items-center">
-                    Add watchlist
+                <div class="flex flex-row justify-center items-center w-32">
                     <UiButton variant="link" @click="() => addToWatchList(filmsStore.dynamic)">
                         <Icon :name="isInWatchlist ? 'solar:bookmark-bold' : 'solar:bookmark-broken'"
                             :color="isInWatchlist ? 'red' : 'white'" size="30" />
                     </UiButton>
                 </div>
-
-
             </div>
         </div>
-
     </div>
 </template>

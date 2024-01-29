@@ -28,22 +28,31 @@ const slidesPerView = computed(() => {
         case 'desctope':
             return 4;
         case 'tablet':
-            return 2;
+            return 3;
         case 'tablet2':
-            return 2;
+            return 3;
         case 'mobile':
-            return 1
+            return 2
         case 'mobile2':
-            return 1
+            return 2
         default:
             return 3;
     }
 });
 
+const screenSize = computed(() => {
+    if (screenStore.platform === 'desctope' || screenStore.platform === 'tablet') {
+        return 'flex flex-col justify-items-start gap-10 w-2/5 h-96'
+    }
+    if (screenStore.platform === 'tablet2' || screenStore.platform === 'mobile' || screenStore.platform === 'mobile2') {
+        return 'flex flex-col justify-items-start gap-10 w-full h-96'
+    }
+})
+
 </script>
 
 <template>
-    <div class="flex flex-col justify-items-start gap-10 w-2/5 h-96">
+    <div :class="screenSize">
         <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
             Like
         </h4>

@@ -43,6 +43,8 @@ const slidesPerView = computed(() => {
 });
 
 
+
+
 const fetchPreviosly = async () => {
     try {
         const response = await fetch('https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_ALL&page=1', {

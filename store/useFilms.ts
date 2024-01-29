@@ -22,12 +22,12 @@ export const useFilmsStore = defineStore({
     dynamic: {} as IFilms,
   }),
   actions: {
+    //films
     setFilms(films: IFilms[]) {
       this.films = films;
     },
-    removeCurrently(index: number) {
-      this.currentlyWatching.splice(index, 1);
-    },
+
+    //currentlyWatching
     addToCurrentlyWatching(index: number, film: IFilms) {
       const filmInStore = this.films.find((f) => f.nameRu === film.nameRu);
       if (filmInStore) {
@@ -35,8 +35,13 @@ export const useFilmsStore = defineStore({
       }
       this.currentlyWatching.push(film);
     },
-    setSuggested(suggested: IFilms[]) {
-      this.watchlist = suggested;
+    removeCurrently(index: number) {
+      this.currentlyWatching.splice(index, 1);
+    },
+
+    //watchlist
+    setWatchList(watchlist: IFilms[]) {
+      this.watchlist = watchlist;
     },
     addToWatchList(index: number, film: IFilms) {
       const filmInStore = this.watchlist.find((f) => f.nameRu === film.nameRu);
@@ -48,6 +53,8 @@ export const useFilmsStore = defineStore({
     removeWatchlist(index: number) {
       this.watchlist.splice(index, 1);
     },
+
+    //dynamic
     setDynamic(dynamic: IFilms) {
       this.dynamic = dynamic;
     },

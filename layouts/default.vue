@@ -1,8 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useScreenStore } from "@/store/useScreen";
+const screenStore = useScreenStore();
+
+
+
+</script>
 
 
 <template>
-    <section style="min-height: 150vh;">
+    <section style="min-height: 100vh;">
         <div class="main-container">
             <LayoutHeader />
             <slot />
@@ -14,6 +20,10 @@
 
 <style scoped>
 .main-container {
-    padding: 5vh;
+    padding: 5vw;
+    max-width: 1600px;
+
+    margin: 0 auto;
+
 }
 </style>
