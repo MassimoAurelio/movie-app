@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { useScreenStore } from '@/store/useScreen'
+import { useFilmsStore } from '@/store/useFilms'
+
 
 const screenStore = useScreenStore()
+const filmsStore = useFilmsStore();
+const query = ref('');
 
 
 
@@ -21,6 +25,19 @@ const searchSize = computed(() => {
 })
 
 
+
+const searchResults = computed(() => {
+    if (!query.value) {
+        return [];
+    }
+    return filmsStore.films.filter((film) => film.nameRu.includes(query.value));
+});
+
+const search = () => {
+    query.value = query.value;
+};
+
+
 </script>
 
 <template>
@@ -34,7 +51,12 @@ const searchSize = computed(() => {
             <UiButton v-if="screenStore.platform === 'mobile2'" class="rounded-full">
                 <Icon name='material-symbols:search' size="30" />
             </UiButton>
-            <UiInput v-else :class="searchSize" placeholder="Search" />
+            <UiInput v-else v-model="query" @input="search" :class="searchSize" placeholder="Search" />
+            <div>
+                <p v-for="item in searchResults" :key='item.kinopoiskId'>
+                    {{ item.nameRu }}
+                </p>
+            </div>
         </div>
     </div>
 </template>

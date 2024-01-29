@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     "shadcn-nuxt",
     "nuxt-primevue",
     "@nuxt/image",
+    "@nuxt/content",
     "@pinia/nuxt",
     "nuxt-icon",
   ],
@@ -19,5 +20,10 @@ export default defineNuxtConfig({
   },
   pinia: {
     storesDirs: ["./store/**"],
+  },
+  content: {
+    experimental: {
+      search: {},
+    },
   },
 });

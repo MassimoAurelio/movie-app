@@ -20,6 +20,7 @@ export const useFilmsStore = defineStore({
     currentlyWatching: [] as IFilms[],
     watchlist: [] as IFilms[],
     dynamic: {} as IFilms,
+    search: [] as IFilms[],
   }),
   actions: {
     //films
@@ -58,5 +59,8 @@ export const useFilmsStore = defineStore({
     setDynamic(dynamic: IFilms) {
       this.dynamic = dynamic;
     },
+
+    //search
+    
   },
 });
