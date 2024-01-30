@@ -26,11 +26,11 @@ const removeFromCurrentlyWatching = (index: number) => {
 const slidesPerView = computed(() => {
     switch (screenStore.platform) {
         case 'desctope':
-            return 4;
+            return 3;
         case 'tablet':
-            return 3;
+            return 2;
         case 'tablet2':
-            return 3;
+            return 2;
         case 'mobile':
             return 2
         case 'mobile2':
@@ -61,7 +61,7 @@ const screenSize = computed(() => {
                 :loop="true" :speed="1300">
                 <SwiperSlide v-for="(item, index) in filmsStore.currentlyWatching" :key="item.kinopoiskId"
                     class="flex flex-col items-center w-44 h-64 relative">
-                    <div class="relative" @click.stop="handleCardClick(item.kinopoiskId)">
+                    <div class="relative cursor-pointer" @click.stop="handleCardClick(item.kinopoiskId) ">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
                         <UiButton variant="link" class="absolute top-2 left-0"
                             @click.stop="removeFromCurrentlyWatching(index)">
@@ -75,7 +75,7 @@ const screenSize = computed(() => {
 
         <div v-else class="flex flex-row gap-5">
             <div class="w-44 h-64 rounded-xl" v-for="(item, index) in filmsStore.currentlyWatching" :key="item.kinopoiskId">
-                <div class="relative" @click.stop="handleCardClick(item.kinopoiskId)">
+                <div class="relative cursor-pointer" @click.stop="handleCardClick(item.kinopoiskId)">
                     <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
                     <UiButton variant="link" class="absolute top-2 left-0 "
                         @click.stop="removeFromCurrentlyWatching(index)">

@@ -71,8 +71,14 @@ export const useFilmsStore = defineStore({
       }
       return this.films.filter(
         (film) =>
-          film.nameRu.toLowerCase().startsWith(this.query.toLowerCase()) ||
-          film.nameOriginal.toLowerCase().startsWith(this.query.toLowerCase())
+          (film &&
+            film.nameRu &&
+            film.nameRu.toLowerCase().startsWith(this.query.toLowerCase())) ||
+          (film &&
+            film.nameOriginal &&
+            film.nameOriginal
+              .toLowerCase()
+              .startsWith(this.query.toLowerCase()))
       );
     },
   },

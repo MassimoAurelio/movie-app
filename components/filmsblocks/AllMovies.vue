@@ -28,7 +28,7 @@ const handleCardClick = (kinopoiskId: number) => {
 const slidesPerView = computed(() => {
     switch (screenStore.platform) {
         case 'desctope':
-            return 9;
+            return 8;
         case 'tablet':
             return 5;
         case 'tablet2':
@@ -38,7 +38,7 @@ const slidesPerView = computed(() => {
         case 'mobile2':
             return 2
         default:
-            return 9;
+            return 8;
     }
 });
 

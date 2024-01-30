@@ -18,11 +18,11 @@ const handleCardClick = (kinopoiskId: number) => {
 const slidesPerView = computed(() => {
     switch (screenStore.platform) {
         case 'desctope':
-            return 4;
+            return 3;
         case 'tablet':
-            return 3;
+            return 2;
         case 'tablet2':
-            return 3;
+            return 2;
         case 'mobile':
             return 2
         case 'mobile2':
@@ -51,14 +51,14 @@ const screenSize = computed(() => {
         <div v-if='Object.keys(filmsStore.watchlist).length >= 4' class="flex flex-row gap-y-5">
             <Swiper :slides-per-view="slidesPerView" :space-between="10" :loop="true" :speed="1300">
                 <SwiperSlide v-for="item in filmsStore.watchlist" :key="item.kinopoiskId">
-                    <div class="relative" @click.stop="handleCardClick(item.kinopoiskId)">
+                    <div class="relative cursor-pointer" @click.stop="handleCardClick(item.kinopoiskId)">
                         <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
                     </div>
                 </SwiperSlide>
             </Swiper>
         </div>
         <div v-else class="flex flex-row gap-5">
-            <div class="w-44 h-64 rounded-xl" v-for="item in filmsStore.watchlist" :key="item.kinopoiskId"
+            <div class="w-44 h-64 rounded-xl cursor-pointer" v-for="item in filmsStore.watchlist" :key="item.kinopoiskId"
                 @click="handleCardClick(item.kinopoiskId)">
                 <NuxtImg :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
             </div>
