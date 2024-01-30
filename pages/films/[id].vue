@@ -50,30 +50,29 @@ const screenSize = computed(() => {
 
 const dinamicPage = async (kinopoiskId: number) => {
   try {
+    filmsStore.setLoading(true);
     const url = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${kinopoiskId}`;
-
     const response = await fetch(url, {
       headers: {
         "X-API-KEY": "8b810c06-cb08-4b64-bc65-de7d7951285a",
         "Content-Type": "application/json",
       },
     });
-
     const data = await response.json();
     filmsStore.setDynamic(data);
-    console.log(filmsStore.watchlist);
+    filmsStore.setLoading(false);
   } catch (error) {
     console.error("WARNING:", error);
+    filmsStore.setLoading(false);
   }
 };
-
 onMounted(() => {
   dinamicPage(kinopoiskId);
 });
 </script>
 
 <template>
-  <div class="relative flex flex-col gap-14">
+  <div class="relative flex flex-col gap-14" v-if="!filmsStore.loading">
     <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
       {{ filmsStore.dynamic.nameRu }}
     </h1>
@@ -140,5 +139,32 @@ onMounted(() => {
         </div>
       </div>
     </div>
+  </div>
+  <div v-else class="flex justify-center items-center">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="10em"
+      height="10em"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z"
+        opacity=".5"
+      />
+      <path
+        fill="currentColor"
+        d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z"
+      >
+        <animateTransform
+          attributeName="transform"
+          dur="1s"
+          from="0 12 12"
+          repeatCount="indefinite"
+          to="360 12 12"
+          type="rotate"
+        />
+      </path>
+    </svg>
   </div>
 </template>

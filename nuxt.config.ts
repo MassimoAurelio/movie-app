@@ -21,9 +21,10 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ["./store/**"],
   },
-  content: {
-    experimental: {
-      search: {},
+  app: {
+    head: {
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
     },
   },
 });

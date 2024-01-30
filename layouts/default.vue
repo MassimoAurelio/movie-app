@@ -1,7 +1,4 @@
-<script setup lang="ts">
-import { useScreenStore } from "@/store/useScreen";
-const screenStore = useScreenStore();
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <section style="min-height: 100vh">

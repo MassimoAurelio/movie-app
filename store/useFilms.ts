@@ -20,6 +20,7 @@ export const useFilmsStore = defineStore({
     currentlyWatching: [] as IFilms[],
     watchlist: [] as IFilms[],
     dynamic: {} as IFilms,
+    loading: false,
     query: "",
   }),
   actions: {
@@ -64,7 +65,9 @@ export const useFilmsStore = defineStore({
     setQuery(newQuery: string) {
       this.query = newQuery;
     },
-
+    setLoading(status: boolean) {
+      this.loading = status;
+    },
     getSearchResults() {
       if (!this.query) {
         return [];
@@ -80,17 +83,6 @@ export const useFilmsStore = defineStore({
               .toLowerCase()
               .startsWith(this.query.toLowerCase()))
       );
-    },
-  },
-});
-
-export const useIsLoadingStore = defineStore("isLoading", {
-  state: () => ({
-    isLoading: true,
-  }),
-  actions: {
-    set(data: boolean) {
-      this.$patch({ isLoading: data });
     },
   },
 });
