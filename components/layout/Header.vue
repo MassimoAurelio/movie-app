@@ -40,6 +40,7 @@ const searchSize = computed(() => {
           v-model="filmsStore.query"
           :class="searchSize"
           placeholder="Search"
+          @blur="filmsStore.query = ''"
         />
         <button
           v-if="filmsStore.query.length > 0"
@@ -51,7 +52,7 @@ const searchSize = computed(() => {
       </div>
       <div
         v-if="filmsStore.query.length > 0"
-        class="mt-1.5 bg-slate-600 w-auto grow p-3 rounded-2xl"
+        class="mt-1.5 bg-slate-600 w-auto grow p-3 rounded-2xl cursor-pointer"
       >
         <p
           v-for="item in filmsStore.getSearchResults()"
