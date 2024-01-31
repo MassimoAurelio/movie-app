@@ -32,9 +32,11 @@ const handleCardClick = (kinopoiskId: number) => {
   router.push(`/films/${kinopoiskId}`);
 };
 
+const handleTitleClick = (nameRu: string) => {};
+
 const slidesPerView = computed(() => {
   switch (screenStore.platform) {
-    case "desctope":
+    case "desktop":
       return 8;
     case "tablet":
       return 5;
@@ -106,8 +108,8 @@ onMounted(() => {
               <Icon
                 :name="
                   heartFilled(item).value
-                    ? 'line-md:heart-filled'
-                    : 'line-md:heart'
+                    ? 'flat-color-icons:like'
+                    : 'icon-park-solid:like'
                 "
                 :color="heartFilled(item).value ? 'red' : 'white'"
                 size="30"

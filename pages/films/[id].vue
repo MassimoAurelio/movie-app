@@ -10,11 +10,31 @@ const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
 const { platform } = storeToRefs(screenStore);
 
+const title = ref(`${kinopoiskId}`);
+
+useSeoMeta({
+  title,
+  description: () => `${title.value}`,
+});
+
 const isInWatchlist = computed(
   () =>
     Array.isArray(filmsStore.watchlist) &&
     filmsStore.watchlist.some((f) => f.nameRu === filmsStore.dynamic.nameRu)
 );
+
+const screenSize = computed(() => {
+  if (screenStore.platform === "desktop" || screenStore.platform === "tablet") {
+    return "flex flex-row item-center gap-3 w-full";
+  }
+  if (
+    screenStore.platform === "tablet2" ||
+    screenStore.platform === "mobile" ||
+    screenStore.platform === "mobile2"
+  ) {
+    return "flex flex-col item-center gap-3 w-full";
+  }
+});
 
 const addToWatchList = (film: any) => {
   const index = filmsStore.films.indexOf(film);
@@ -31,22 +51,6 @@ const addToWatchList = (film: any) => {
     filmsStore.removeWatchlist(filmIndex);
   }
 };
-
-const screenSize = computed(() => {
-  if (
-    screenStore.platform === "desctope" ||
-    screenStore.platform === "tablet"
-  ) {
-    return "flex flex-row item-center gap-3 w-full";
-  }
-  if (
-    screenStore.platform === "tablet2" ||
-    screenStore.platform === "mobile" ||
-    screenStore.platform === "mobile2"
-  ) {
-    return "flex flex-col item-center gap-3 w-full";
-  }
-});
 
 const dinamicPage = async (kinopoiskId: number) => {
   try {

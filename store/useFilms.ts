@@ -36,9 +36,41 @@ export const useFilmsStore = defineStore({
         filmInStore.isFavorite = true;
       }
       this.currentlyWatching.push(film);
+      this.saveCurrentlyWatching();
     },
     removeCurrently(index: number) {
       this.currentlyWatching.splice(index, 1);
+      this.saveCurrentlyWatching();
+    },
+    saveCurrentlyWatching() {
+      const serializableCurrentlyWatching = this.currentlyWatching.map(
+        (film) => {
+          return {
+            nameOriginal: film.nameOriginal,
+            nameRu: film.nameRu,
+            posterUrl: film.posterUrl,
+            posterUrlPreview: film.posterUrlPreview,
+            ratingImdb: film.ratingImdb,
+            year: film.year,
+            isFavorite: film.isFavorite,
+            isWatchList: film.isWatchList,
+            kinopoiskId: film.kinopoiskId,
+            description: film.description,
+            genres: film.genres,
+          };
+        }
+      );
+      localStorage.setItem(
+        "currentlyWatching",
+        JSON.stringify(serializableCurrentlyWatching)
+      );
+    },
+
+    loadCurrentlyWatching() {
+      const data = localStorage.getItem("currentlyWatching");
+      if (data) {
+        this.currentlyWatching = JSON.parse(data);
+      }
     },
 
     //watchlist
@@ -51,9 +83,36 @@ export const useFilmsStore = defineStore({
         filmInStore.isWatchList = true;
       }
       this.watchlist.push(film);
+      this.saveWatchlist();
     },
     removeWatchlist(index: number) {
       this.watchlist.splice(index, 1);
+      this.saveWatchlist();
+    },
+    saveWatchlist() {
+      const serializableWatchlist = this.watchlist.map((film) => {
+        return {
+          nameOriginal: film.nameOriginal,
+          nameRu: film.nameRu,
+          posterUrl: film.posterUrl,
+          posterUrlPreview: film.posterUrlPreview,
+          ratingImdb: film.ratingImdb,
+          year: film.year,
+          isFavorite: film.isFavorite,
+          isWatchList: film.isWatchList,
+          kinopoiskId: film.kinopoiskId,
+          description: film.description,
+          genres: film.genres,
+        };
+      });
+      localStorage.setItem("watchlist", JSON.stringify(serializableWatchlist));
+    },
+
+    loadWatchlist() {
+      const data = localStorage.getItem("watchlist");
+      if (data) {
+        this.watchlist = JSON.parse(data);
+      }
     },
 
     //dynamic

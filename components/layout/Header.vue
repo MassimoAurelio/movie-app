@@ -7,12 +7,13 @@ const filmsStore = useFilmsStore();
 const router = useRouter();
 
 const handleCardClick = (kinopoiskId: number) => {
+  console.log("click");
   router.push(`/films/${kinopoiskId}`);
 };
 
 const searchSize = computed(() => {
   switch (screenStore.platform) {
-    case "desctope":
+    case "desktop":
       return "p-3 w-1/2 rounded-3xl w-full";
     case "tablet":
       return "p-3 w-auto rounded-3xl w-full";
@@ -31,7 +32,7 @@ const searchSize = computed(() => {
     <h3 class="text-4xl font-extrabold tracking-tight lg:text-5xl grow">
       <NuxtLink to="/"> The<br />Movie<br />Tracker </NuxtLink>
     </h3>
-    <div class="grow">
+    <div class="grow relative">
       <UiButton v-if="screenStore.platform === 'mobile2'" class="rounded-full">
         <Icon name="material-symbols:search" size="30" />
       </UiButton>
@@ -40,7 +41,6 @@ const searchSize = computed(() => {
           v-model="filmsStore.query"
           :class="searchSize"
           placeholder="Search"
-          @blur="filmsStore.query = ''"
         />
         <button
           v-if="filmsStore.query.length > 0"
@@ -53,12 +53,12 @@ const searchSize = computed(() => {
       <div
         v-if="filmsStore.query.length > 0"
         class="mt-1.5 bg-slate-600 w-auto grow p-3 rounded-2xl cursor-pointer"
+        style="position: absolute; width: 100%"
       >
         <p
           v-for="item in filmsStore.getSearchResults()"
           :key="item.kinopoiskId"
-          @click="handleCardClick(item.kinopoiskId)"
-          @keyup.enter="handleCardClick(item.kinopoiskId)"
+          @click.stop="handleCardClick(item.kinopoiskId)"
         >
           {{ item.nameRu }}
         </p>
