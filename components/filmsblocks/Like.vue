@@ -2,16 +2,15 @@
 import { useFilmsStore } from "@/store/useFilms";
 import { useScreenStore } from "@/store/useScreen";
 import { Swiper, SwiperSlide } from "swiper/vue";
+import { useHandleCardClick } from "@/hooks/useHandleCardClick";
+import { useSlidesPerViewLike } from "@/hooks/useScreens";
 import "swiper/css";
 
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
-const router = useRouter();
-const { platform } = storeToRefs(screenStore);
 
-const handleCardClick = (kinopoiskId: number) => {
-  router.push(`/films/${kinopoiskId}`);
-};
+const { handleCardClick } = useHandleCardClick();
+const { slidesPerView } = useSlidesPerViewLike();
 
 const removeFromCurrentlyWatching = (index: number) => {
   const filmToRemove = filmsStore.currentlyWatching[index];
@@ -24,28 +23,8 @@ const removeFromCurrentlyWatching = (index: number) => {
   filmsStore.removeCurrently(index);
 };
 
-const slidesPerView = computed(() => {
-  switch (screenStore.platform) {
-    case "desktop":
-      return 3;
-    case "tablet":
-      return 2;
-    case "tablet2":
-      return 2;
-    case "mobile":
-      return 2;
-    case "mobile2":
-      return 2;
-    default:
-      return 3;
-  }
-});
-
 const screenSize = computed(() => {
-  if (
-    screenStore.platform === "desktop" ||
-    screenStore.platform === "tablet"
-  ) {
+  if (screenStore.platform === "desktop" || screenStore.platform === "tablet") {
     return "flex flex-col justify-items-start gap-10 w-2/5 h-96";
   }
   if (
@@ -94,7 +73,9 @@ onMounted(() => {
             >
               <Icon
                 :name="
-                  item.isFavorite ? 'flat-color-icons:like' : 'icon-park-solid:like'
+                  item.isFavorite
+                    ? 'flat-color-icons:like'
+                    : 'icon-park-solid:like'
                 "
                 :color="item.isFavorite ? 'red' : 'white'"
                 size="30"
@@ -122,7 +103,11 @@ onMounted(() => {
             @click.stop="removeFromCurrentlyWatching(index)"
           >
             <Icon
-              :name="item.isFavorite ? 'flat-color-icons:like' : 'icon-park-solid:like'"
+              :name="
+                item.isFavorite
+                  ? 'flat-color-icons:like'
+                  : 'icon-park-solid:like'
+              "
               :color="item.isFavorite ? 'red' : 'white'"
               size="30"
             />

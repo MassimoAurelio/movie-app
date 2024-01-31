@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { useScreenStore } from "@/store/useScreen";
 import { useFilmsStore } from "@/store/useFilms";
+import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 
 const screenStore = useScreenStore();
 const filmsStore = useFilmsStore();
 const router = useRouter();
 
-const handleCardClick = (kinopoiskId: number) => {
-  console.log("click");
-  router.push(`/films/${kinopoiskId}`);
-};
+
+
+const { handleCardClick } = useHandleCardClick();
 
 const searchSize = computed(() => {
   switch (screenStore.platform) {

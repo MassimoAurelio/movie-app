@@ -6,6 +6,7 @@
       <LayoutHeader />
       <slot />
     </div>
+    <LayoutFooter />
   </section>
 </template>
 

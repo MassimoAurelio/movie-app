@@ -6,16 +6,10 @@ import ScrollPanel from "primevue/scrollpanel";
 const route = useRoute();
 const kinopoiskId = Number(route.params.id);
 
+
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
 const { platform } = storeToRefs(screenStore);
-
-const title = ref(`${kinopoiskId}`);
-
-useSeoMeta({
-  title,
-  description: () => `${title.value}`,
-});
 
 const isInWatchlist = computed(
   () =>

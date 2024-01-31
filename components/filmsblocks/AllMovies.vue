@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useFilmsStore } from "@/store/useFilms";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { useScreenStore } from "@/store/useScreen";
+import { useHandleCardClick } from "@/hooks/useHandleCardClick";
+import { useSliderPerViewAllMovies } from "@/hooks/useScreens";
 import "swiper/css";
 
 const filmsStore = useFilmsStore();
-const screenStore = useScreenStore();
-const router = useRouter();
+const { handleCardClick } = useHandleCardClick();
+const { slidesPerView } = useSliderPerViewAllMovies();
 
 const heartFilled = (film: IFilms) =>
   computed(() =>
@@ -27,29 +28,6 @@ const addToFavorites = (index: number, film: any) => {
     filmsStore.removeCurrently(filmIndex);
   }
 };
-
-const handleCardClick = (kinopoiskId: number) => {
-  router.push(`/films/${kinopoiskId}`);
-};
-
-const handleTitleClick = (nameRu: string) => {};
-
-const slidesPerView = computed(() => {
-  switch (screenStore.platform) {
-    case "desktop":
-      return 8;
-    case "tablet":
-      return 5;
-    case "tablet2":
-      return 4;
-    case "mobile":
-      return 2;
-    case "mobile2":
-      return 2;
-    default:
-      return 8;
-  }
-});
 
 const fetchPreviosly = async () => {
   try {

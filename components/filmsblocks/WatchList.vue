@@ -2,34 +2,14 @@
 import { useFilmsStore } from "@/store/useFilms";
 import { useScreenStore } from "@/store/useScreen";
 import { Swiper, SwiperSlide } from "swiper/vue";
+import { useHandleCardClick } from "@/hooks/useHandleCardClick";
+import { useSliderPerViewWatchList } from "@/hooks/useScreens";
 import "swiper/css";
 
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
-const { platform } = storeToRefs(screenStore);
-
-const router = useRouter();
-
-const handleCardClick = (kinopoiskId: number) => {
-  router.push(`/films/${kinopoiskId}`);
-};
-
-const slidesPerView = computed(() => {
-  switch (screenStore.platform) {
-    case "desktop":
-      return 3;
-    case "tablet":
-      return 2;
-    case "tablet2":
-      return 2;
-    case "mobile":
-      return 2;
-    case "mobile2":
-      return 2;
-    default:
-      return 3;
-  }
-});
+const { handleCardClick } = useHandleCardClick();
+const { slidesPerView } = useSliderPerViewWatchList();
 
 const screenSize = computed(() => {
   if (screenStore.platform === "desktop" || screenStore.platform === "tablet") {
