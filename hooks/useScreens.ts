@@ -67,3 +67,5 @@ export function useSliderPerViewWatchList() {
   });
   return { slidesPerView };
 }
+
+

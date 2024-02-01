@@ -11,6 +11,10 @@
 </template>
 
 <style scoped>
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+}
 .main-container {
   padding: 5vw;
   max-width: 1600px;

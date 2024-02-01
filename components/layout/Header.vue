@@ -2,29 +2,13 @@
 import { useScreenStore } from "@/store/useScreen";
 import { useFilmsStore } from "@/store/useFilms";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
+import { useScreenHeader } from "@/hooks/useScreenSize";
 
 const screenStore = useScreenStore();
 const filmsStore = useFilmsStore();
-const router = useRouter();
-
-
 
 const { handleCardClick } = useHandleCardClick();
-
-const searchSize = computed(() => {
-  switch (screenStore.platform) {
-    case "desktop":
-      return "p-3 w-1/2 rounded-3xl w-full";
-    case "tablet":
-      return "p-3 w-auto rounded-3xl w-full";
-    case "tablet2":
-      return "p-3 w-auto rounded-3xl w-full";
-    case "mobile":
-      return "p-3 w-auto rounded-3xl w-full";
-    case "mobile2":
-      return "p-3 w-9 h-9 rounded-3xl w-full";
-  }
-});
+const { searchSize } = useScreenHeader();
 </script>
 
 <template>
