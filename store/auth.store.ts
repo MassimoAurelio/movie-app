@@ -1,13 +1,22 @@
-export const useAuthStore = defineStore("auth", {
+export const useUserStore = defineStore({
+  id: "user",
   state: () => ({
-    isLoggedIn: false,
+    isAuthenticated: false,
   }),
   actions: {
-    login() {
-      this.isLoggedIn = true;
+    setAuthenticated(value: boolean) {
+      this.isAuthenticated = value;
     },
-    logout() {
-      this.isLoggedIn = false;
+  },
+});
+
+export const useIsLoadingStore = defineStore("isLoading", {
+  state: () => ({
+    isLoading: true,
+  }),
+  actions: {
+    set(data: boolean) {
+      this.$patch({ isLoading: data });
     },
   },
 });

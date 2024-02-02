@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useFilmsStore } from "@/store/useFilms";
+import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSliderPerViewAllMovies } from "@/hooks/useScreens";
@@ -8,6 +9,7 @@ import "swiper/css";
 const filmsStore = useFilmsStore();
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSliderPerViewAllMovies();
+const isLoadingStore = useIsLoadingStore();
 
 const heartFilled = (film: IFilms) =>
   computed(() =>
@@ -30,6 +32,7 @@ const addToFavorites = (index: number, film: any) => {
 };
 
 const fetchPreviosly = async () => {
+  isLoadingStore.set(true);
   try {
     const response = await fetch(
       "https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_ALL&page=1",
@@ -48,6 +51,7 @@ const fetchPreviosly = async () => {
   } catch (error) {
     console.error("WARNING:", error);
   }
+  isLoadingStore.set(false);
 };
 
 onMounted(() => {

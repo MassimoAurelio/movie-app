@@ -4,10 +4,12 @@ import { useScreenStore } from "@/store/useScreen";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSlidesPerViewLike } from "@/hooks/useScreens";
+import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
 import "swiper/css";
 
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
+const isLoadingStore = useIsLoadingStore();
 
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSlidesPerViewLike();

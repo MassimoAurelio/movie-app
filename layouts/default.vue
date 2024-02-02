@@ -1,12 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
+
+const isAuthStore = useUserStore();
+const isLoadingStore = useIsLoadingStore();
+const router = useRouter();
+</script>
 
 <template>
+  <!--  <LayoutLoader v-if="isLoadingStore.isLoading" /> -->
   <section style="min-height: 100vh">
     <div class="main-container">
-      <LayoutHeader />
+      <LayoutHeader v-if="isAuthStore.isAuthenticated" />
       <slot />
     </div>
-    <LayoutFooter />
+    <LayoutFooter v-if="isAuthStore.isAuthenticated" />
   </section>
 </template>
 

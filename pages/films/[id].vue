@@ -3,6 +3,7 @@ import { useFilmsStore } from "@/store/useFilms";
 import { useScreenStore } from "@/store/useScreen";
 import { useSliderPerViewID } from "@/hooks/useScreenSize";
 import { useAddToWatchList } from "@/hooks/useAddTo";
+import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
 import ScrollPanel from "primevue/scrollpanel";
 
 const route = useRoute();
@@ -10,6 +11,7 @@ const kinopoiskId = Number(route.params.id);
 
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
+const isLoadingStore = useIsLoadingStore();
 const { screenSize } = useSliderPerViewID();
 const { addToWatchList } = useAddToWatchList();
 
@@ -26,6 +28,7 @@ const isInWatchlist = computed(
 );
 
 const dinamicPage = async (kinopoiskId: number) => {
+  isLoadingStore.set(true);
   try {
     filmsStore.setLoading(true);
     const url = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${kinopoiskId}`;
@@ -42,6 +45,7 @@ const dinamicPage = async (kinopoiskId: number) => {
     console.error("WARNING:", error);
     filmsStore.setLoading(false);
   }
+  isLoadingStore.set(false);
 };
 onMounted(() => {
   dinamicPage(kinopoiskId);

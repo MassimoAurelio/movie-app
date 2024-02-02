@@ -1,14 +1,19 @@
 <script setup lang="ts">
+import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
+
 useSeoMeta({
   title: "Login",
 });
 
+const authStore = useUserStore();
+const isLoadingStore = useIsLoadingStore();
 const router = useRouter();
 
 const email = ref("");
 const password = ref("");
 
 const fetchFromMyServer = async () => {
+  isLoadingStore.set(true);
   try {
     const userData = {
       username: email.value,
@@ -24,17 +29,30 @@ const fetchFromMyServer = async () => {
     });
 
     if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      authStore.setAuthenticated(true);
       await router.push("/");
     } else {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
     const data = await response.json();
     console.log(data);
   } catch (error) {
     console.log(error);
+    isLoadingStore.set(false);
   }
+  isLoadingStore.set(false);
 };
+
+onBeforeMount(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    authStore.isAuthenticated = true;
+  } else {
+    authStore.isAuthenticated = false;
+  }
+});
 </script>
 
 <template>
