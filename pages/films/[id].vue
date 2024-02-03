@@ -59,7 +59,7 @@ onMounted(() => {
     </h1>
     <div class="flex flex-row relative">
       <div :class="screenSize">
-        <div class="w-auto h-96 cursor-pointer">
+        <div class="w-auto h-96 mr cursor-pointer">
           <img
             :src="filmsStore.dynamic.posterUrl"
             alt="img"

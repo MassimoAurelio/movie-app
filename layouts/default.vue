@@ -10,10 +10,10 @@ const router = useRouter();
   <!--  <LayoutLoader v-if="isLoadingStore.isLoading" /> -->
   <section style="min-height: 100vh">
     <div class="main-container">
-      <LayoutHeader v-if="isAuthStore.isAuthenticated" />
+      <LayoutHeader  />
       <slot />
     </div>
-    <LayoutFooter v-if="isAuthStore.isAuthenticated" />
+    <LayoutFooter  />
   </section>
 </template>
 
