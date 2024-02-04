@@ -63,7 +63,7 @@ onMounted(() => {
           <img
             :src="filmsStore.dynamic.posterUrl"
             alt="img"
-            class="w-full h-full rounded-xl"
+            class="w-auto h-full rounded-xl mr-4"
           />
         </div>
         <div class="flex flex-col w-full gap-5">
