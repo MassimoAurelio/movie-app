@@ -25,7 +25,12 @@ function logout() {
 <template v-if="isAuthStore.isAuthenticated">
   <div class="flex flex-col gap-10">
     <LayoutLoader v-if="isLoadingStore.isLoading" />
-    <UiButton v-if="authStore.isAuthenticated" @click="logout">Logout</UiButton>
+    <button
+      class="absolute top-2 right-3 transition-colors hover:text-purple-400"
+      @click="logout"
+    >
+      <Icon name="line-md:logout" color="white" size="30" />
+    </button>
     <FilmsblocksAllMovies />
     <div class="flex flex-col relative">
       <FilmsblocksLike />
