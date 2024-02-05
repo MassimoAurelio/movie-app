@@ -17,10 +17,7 @@ const { searchSize } = useScreenHeader();
       <NuxtLink to="/"> The<br />Movie<br />Tracker </NuxtLink>
     </h3>
     <div class="grow relative">
-      <UiButton v-if="screenStore.platform === 'mobile2'" class="rounded-full">
-        <Icon name="material-symbols:search" size="30" />
-      </UiButton>
-      <div v-else class="relative">
+      <div class="relative">
         <UiInput
           v-model="filmsStore.query"
           :class="searchSize"

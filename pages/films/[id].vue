@@ -43,9 +43,9 @@ const dinamicPage = async (kinopoiskId: number) => {
     filmsStore.setLoading(false);
   } catch (error) {
     console.error("WARNING:", error);
-    filmsStore.setLoading(false);
+  } finally {
+    isLoadingStore.set(false);
   }
-  isLoadingStore.set(false);
 };
 onMounted(() => {
   dinamicPage(kinopoiskId);
