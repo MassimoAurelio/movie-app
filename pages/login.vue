@@ -49,6 +49,7 @@ onBeforeMount(() => {
   const token = localStorage.getItem("token");
   if (token) {
     authStore.isAuthenticated = true;
+    router.push("/");
   } else {
     authStore.isAuthenticated = false;
   }
@@ -56,7 +57,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
+  <LayoutLoader v-if="isLoadingStore.isLoading" />
   <div
+    v-else
     class="flex flex-col items-center justify-center min-h-screen w-full gap-5"
   >
     <h1

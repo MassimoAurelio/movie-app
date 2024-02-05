@@ -60,7 +60,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-10">
+  <LayoutLoader v-if="isLoadingStore.isLoading" />
+  <div v-else class="flex flex-col gap-10">
     <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
       Suggested To Watch
     </h4>
