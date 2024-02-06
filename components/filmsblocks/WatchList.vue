@@ -37,7 +37,7 @@ onMounted(() => {
           :key="item.kinopoiskId"
         >
           <div
-            class="relative cursor-pointer"
+            class="cursor-pointer relative flex items-center justify-center h-72 overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
             @click.stop="handleCardClick(item.kinopoiskId)"
           >
             <NuxtImg
@@ -51,7 +51,7 @@ onMounted(() => {
     </div>
     <div v-else class="flex flex-row gap-5">
       <div
-        class="w-44 h-64 rounded-xl cursor-pointer"
+        class="w-44 h-64 rounded-xl cursor-pointer relative flex items-center justify-center overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
         v-for="item in filmsStore.watchlist"
         :key="item.kinopoiskId"
         @click="handleCardClick(item.kinopoiskId)"

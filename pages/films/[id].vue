@@ -12,13 +12,25 @@ const kinopoiskId = Number(route.params.id);
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
 const isLoadingStore = useIsLoadingStore();
-const { screenSize } = useSliderPerViewID();
+/* const { screenSize } = useSliderPerViewID(); */
 const { addToWatchList } = useAddToWatchList();
 
 const film = computed(() => filmsStore.dynamic.nameRu);
-
 useSeoMeta({
   title: film,
+});
+
+const screenSize = computed(() => {
+  if (screenStore.platform === "desktop" || screenStore.platform === "tablet") {
+    return "flex flex-row item-center gap-3 w-full";
+  }
+  if (
+    screenStore.platform === "tablet2" ||
+    screenStore.platform === "mobile" ||
+    screenStore.platform === "mobile2"
+  ) {
+    return "flex flex-col item-center gap-3 w-full";
+  }
 });
 
 const isInWatchlist = computed(
@@ -63,7 +75,7 @@ onMounted(() => {
           <img
             :src="filmsStore.dynamic.posterUrl"
             alt="img"
-            class="w-auto h-full rounded-xl mr-4"
+            class="w-auto h-full rounded-xl"
           />
         </div>
         <div class="flex flex-col w-full gap-5">

@@ -77,14 +77,17 @@ onMounted(() => {
           v-for="(item, index) in filmsStore.films"
           :key="item.nameRu"
         >
-          <div class="relative" @click.stop="handleCardClick(item.kinopoiskId)">
+          <div
+            class="relative flex items-center justify-center h-72 overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
+            @click.stop="handleCardClick(item.kinopoiskId)"
+          >
             <NuxtImg
               :src="item.posterUrl"
               alt="img"
               class="w-44 h-64 rounded-xl"
             />
             <UiButton
-              class="absolute top-2 left-0"
+              class="absolute top-6 left-0"
               variant="link"
               @click.stop="addToFavorites(index, item)"
             >

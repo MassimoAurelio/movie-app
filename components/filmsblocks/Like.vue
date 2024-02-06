@@ -64,13 +64,13 @@ onMounted(() => {
           class="flex flex-col items-center w-44 h-64 relative"
         >
           <div
-            class="relative cursor-pointer"
+            class="cursor-pointer relative flex items-center justify-center h-72 overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
             @click.stop="handleCardClick(item.kinopoiskId)"
           >
             <img :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
             <UiButton
               variant="link"
-              class="absolute top-2 left-0"
+              class="absolute top-6 left-0"
               @click.stop="removeFromCurrentlyWatching(index)"
             >
               <Icon
