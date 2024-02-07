@@ -9,7 +9,6 @@ import "swiper/css";
 
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
-const isLoadingStore = useIsLoadingStore();
 
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSlidesPerViewLike();
@@ -64,7 +63,7 @@ onMounted(() => {
           class="flex flex-col items-center w-44 h-64 relative"
         >
           <div
-            class="cursor-pointer relative flex items-center justify-center h-72 overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
+            class="w-44 h-72 rounded-xl cursor-pointer relative flex items-center justify-center overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
             @click.stop="handleCardClick(item.kinopoiskId)"
           >
             <img :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
@@ -90,31 +89,25 @@ onMounted(() => {
 
     <div v-else class="flex flex-row gap-5">
       <div
-        class="w-44 h-64 rounded-xl"
+        class="w-44 h-72 rounded-xl cursor-pointer relative flex items-center justify-center overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
+        @click.stop="handleCardClick(item.kinopoiskId)"
         v-for="(item, index) in filmsStore.currentlyWatching"
         :key="item.kinopoiskId"
       >
-        <div
-          class="relative cursor-pointer"
-          @click.stop="handleCardClick(item.kinopoiskId)"
+        <img :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
+        <UiButton
+          variant="link"
+          class="absolute top-6 left-0"
+          @click.stop="removeFromCurrentlyWatching(index)"
         >
-          <img :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />
-          <UiButton
-            variant="link"
-            class="absolute top-2 left-0"
-            @click.stop="removeFromCurrentlyWatching(index)"
-          >
-            <Icon
-              :name="
-                item.isFavorite
-                  ? 'flat-color-icons:like'
-                  : 'icon-park-solid:like'
-              "
-              :color="item.isFavorite ? 'red' : 'white'"
-              size="30"
-            />
-          </UiButton>
-        </div>
+          <Icon
+            :name="
+              item.isFavorite ? 'flat-color-icons:like' : 'icon-park-solid:like'
+            "
+            :color="item.isFavorite ? 'red' : 'white'"
+            size="30"
+          />
+        </UiButton>
       </div>
     </div>
   </div>

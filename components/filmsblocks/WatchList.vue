@@ -8,8 +8,8 @@ import { useScreenSizeWatchList } from "@/hooks/useScreenSize";
 import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
 import "swiper/css";
 
+
 const filmsStore = useFilmsStore();
-const isLoadingStore = useIsLoadingStore();
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSliderPerViewWatchList();
 const { screenSize } = useScreenSizeWatchList();
@@ -24,7 +24,7 @@ onMounted(() => {
     <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">Viewed</h4>
     <div
       v-if="Object.keys(filmsStore.watchlist).length >= 4"
-      class="flex flex-row gap-y-5"
+      class="flex flex-row gap-5"
     >
       <Swiper
         :slides-per-view="slidesPerView"
@@ -37,7 +37,7 @@ onMounted(() => {
           :key="item.kinopoiskId"
         >
           <div
-            class="cursor-pointer relative flex items-center justify-center h-72 overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
+            class="w-44 h-72 rounded-xl cursor-pointer relative flex items-center justify-center overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
             @click.stop="handleCardClick(item.kinopoiskId)"
           >
             <NuxtImg
@@ -51,7 +51,7 @@ onMounted(() => {
     </div>
     <div v-else class="flex flex-row gap-5">
       <div
-        class="w-44 h-64 rounded-xl cursor-pointer relative flex items-center justify-center overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
+        class="w-44 h-72 rounded-xl cursor-pointer relative flex items-center justify-center overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
         v-for="item in filmsStore.watchlist"
         :key="item.kinopoiskId"
         @click="handleCardClick(item.kinopoiskId)"

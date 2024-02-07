@@ -4,12 +4,17 @@ import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSliderPerViewAllMovies } from "@/hooks/useScreens";
+
 import "swiper/css";
 
 const filmsStore = useFilmsStore();
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSliderPerViewAllMovies();
 const isLoadingStore = useIsLoadingStore();
+
+const config = useRuntimeConfig();
+const baseUrl = config.public.allMovieUrl;
+const apiKey = config.apiKey;
 
 const heartFilled = (film: IFilms) =>
   computed(() =>
@@ -87,7 +92,7 @@ onMounted(() => {
               class="w-44 h-64 rounded-xl"
             />
             <UiButton
-              class="absolute top-6 left-0"
+              class="absolute top-5 left-0"
               variant="link"
               @click.stop="addToFavorites(index, item)"
             >
