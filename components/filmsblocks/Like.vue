@@ -1,41 +1,14 @@
 <script setup lang="ts">
 import { useFilmsStore } from "@/store/useFilms";
-import { useScreenStore } from "@/store/useScreen";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
-import { useSlidesPerViewLike } from "@/hooks/useScreens";
-import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
+import { useSlidesPerViewLike, getScreenSize } from "@/hooks/useScreens";
 import "swiper/css";
-
-const filmsStore = useFilmsStore();
-const screenStore = useScreenStore();
 
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSlidesPerViewLike();
-
-const removeFromCurrentlyWatching = (index: number) => {
-  const filmToRemove = filmsStore.currentlyWatching[index];
-  const filmInStore = filmsStore.films.find(
-    (f) => f.nameRu === filmToRemove.nameRu
-  );
-  if (filmInStore) {
-    filmInStore.isFavorite = false;
-  }
-  filmsStore.removeCurrently(index);
-};
-
-const screenSize = computed(() => {
-  if (screenStore.platform === "desktop" || screenStore.platform === "tablet") {
-    return "flex flex-col justify-items-start gap-10 w-2/5 h-96";
-  }
-  if (
-    screenStore.platform === "tablet2" ||
-    screenStore.platform === "mobile" ||
-    screenStore.platform === "mobile2"
-  ) {
-    return "flex flex-col justify-items-start gap-10 w-full h-96";
-  }
-});
+const filmsStore = useFilmsStore();
+const screenSize = getScreenSize();
 
 onMounted(() => {
   filmsStore.loadCurrentlyWatching();
@@ -70,7 +43,7 @@ onMounted(() => {
             <UiButton
               variant="link"
               class="absolute top-6 left-0"
-              @click.stop="removeFromCurrentlyWatching(index)"
+              @click.stop="filmsStore.removeFromCurrentlyWatching(index)"
             >
               <Icon
                 :name="
@@ -98,7 +71,7 @@ onMounted(() => {
         <UiButton
           variant="link"
           class="absolute top-6 left-0"
-          @click.stop="removeFromCurrentlyWatching(index)"
+          @click.stop="filmsStore.removeFromCurrentlyWatching(index)"
         >
           <Icon
             :name="

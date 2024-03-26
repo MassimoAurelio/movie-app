@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { useFilmsStore } from "@/store/useFilms";
-import { useScreenStore } from "@/store/useScreen";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSliderPerViewWatchList } from "@/hooks/useScreens";
 import { useScreenSizeWatchList } from "@/hooks/useScreenSize";
-import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
+const { handleCardClick } = useHandleCardClick();
+const { slidesPerView } = useSliderPerViewWatchList();
+const { screenSize } = useScreenSizeWatchList();
 import "swiper/css";
 
 
 const filmsStore = useFilmsStore();
-const { handleCardClick } = useHandleCardClick();
-const { slidesPerView } = useSliderPerViewWatchList();
-const { screenSize } = useScreenSizeWatchList();
 
 onMounted(() => {
   filmsStore.loadWatchlist();

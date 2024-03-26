@@ -143,5 +143,20 @@ export const useFilmsStore = defineStore({
               .startsWith(this.query.toLowerCase()))
       );
     },
+    removeFromCurrentlyWatching(index: number) {
+      const filmToRemove = this.currentlyWatching[index];
+      const filmInStore = this.films.find(
+        (f) => f.nameRu === filmToRemove.nameRu
+      );
+      if (filmInStore) {
+        filmInStore.isFavorite = false;
+      }
+      this.removeCurrently(index);
+    },
+    heartFilled(film: IFilms) {
+      computed(() =>
+        this.currentlyWatching.some((f) => f.nameRu === film.nameRu)
+      );
+    },
   },
 });

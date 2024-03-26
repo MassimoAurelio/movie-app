@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useFilmsStore } from "@/store/useFilms";
 import { useScreenStore } from "@/store/useScreen";
-import { useSliderPerViewID } from "@/hooks/useScreenSize";
 import { useAddToWatchList } from "@/hooks/useAddTo";
-import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
+import { useIsLoadingStore } from "@/store/auth.store";
 import ScrollPanel from "primevue/scrollpanel";
 
 const route = useRoute();
@@ -12,10 +11,10 @@ const kinopoiskId = Number(route.params.id);
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
 const isLoadingStore = useIsLoadingStore();
-/* const { screenSize } = useSliderPerViewID(); */
 const { addToWatchList } = useAddToWatchList();
 
 const film = computed(() => filmsStore.dynamic.nameRu);
+
 useSeoMeta({
   title: film,
 });

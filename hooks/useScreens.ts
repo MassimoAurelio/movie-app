@@ -1,5 +1,7 @@
 import { ref, computed } from "vue";
 import { useScreenStore } from "@/store/useScreen";
+const screenStore = useScreenStore();
+const { platform } = storeToRefs(screenStore);
 
 //LIKE
 export function useSlidesPerViewLike() {
@@ -21,6 +23,26 @@ export function useSlidesPerViewLike() {
   });
 
   return { slidesPerView };
+}
+
+export function getScreenSize() {
+  const screenStore = useScreenStore();
+
+  return computed(() => {
+    if (
+      screenStore.platform === "desktop" ||
+      screenStore.platform === "tablet"
+    ) {
+      return "flex flex-col justify-items-start gap-10 w-2/5 h-96";
+    }
+    if (
+      screenStore.platform === "tablet2" ||
+      screenStore.platform === "mobile" ||
+      screenStore.platform === "mobile2"
+    ) {
+      return "flex flex-col justify-items-start gap-10 w-full h-96";
+    }
+  });
 }
 
 //ALLMOVIES
@@ -67,5 +89,3 @@ export function useSliderPerViewWatchList() {
   });
   return { slidesPerView };
 }
-
-
