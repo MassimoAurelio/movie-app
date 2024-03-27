@@ -57,9 +57,8 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <LayoutLoader v-if="isLoadingStore.isLoading" />
+ <!--  <LayoutLoader v-if="isLoadingStore.isLoading" /> -->
   <div
-    v-else
     class="flex flex-col items-center justify-center min-h-screen w-full gap-5"
   >
     <h1

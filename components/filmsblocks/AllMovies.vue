@@ -1,40 +1,15 @@
 <script setup lang="ts">
 import { useFilmsStore } from "@/store/useFilms";
-import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
+import { useIsLoadingStore } from "@/store/auth.store";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSliderPerViewAllMovies } from "@/hooks/useScreens";
-
 import "swiper/css";
 
 const filmsStore = useFilmsStore();
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSliderPerViewAllMovies();
 const isLoadingStore = useIsLoadingStore();
-
-const config = useRuntimeConfig();
-const baseUrl = config.public.allMovieUrl;
-const apiKey = config.apiKey;
-
-const heartFilled = (film: IFilms) =>
-  computed(() =>
-    filmsStore.currentlyWatching.some((f) => f.nameRu === film.nameRu)
-  );
-
-const addToFavorites = (index: number, film: any) => {
-  const isAlreadyAdded = filmsStore.currentlyWatching.some(
-    (f) => f.nameRu === film.nameRu
-  );
-
-  if (!isAlreadyAdded) {
-    filmsStore.addToCurrentlyWatching(index, film);
-  } else {
-    const filmIndex = filmsStore.currentlyWatching.findIndex(
-      (f) => f.nameRu === film.nameRu
-    );
-    filmsStore.removeCurrently(filmIndex);
-  }
-};
 
 const fetchPreviosly = async () => {
   isLoadingStore.set(true);
@@ -57,6 +32,26 @@ const fetchPreviosly = async () => {
     console.error("WARNING:", error);
   }
   isLoadingStore.set(false);
+};
+
+const heartFilled = (film: IFilms) =>
+  computed(() =>
+    filmsStore.currentlyWatching.some((f) => f.nameRu === film.nameRu)
+  );
+
+const addToFavorites = (index: number, film: any) => {
+  const isAlreadyAdded = filmsStore.currentlyWatching.some(
+    (f) => f.nameRu === film.nameRu
+  );
+
+  if (!isAlreadyAdded) {
+    filmsStore.addToCurrentlyWatching(index, film);
+  } else {
+    const filmIndex = filmsStore.currentlyWatching.findIndex(
+      (f) => f.nameRu === film.nameRu
+    );
+    filmsStore.removeCurrently(filmIndex);
+  }
 };
 
 onMounted(() => {

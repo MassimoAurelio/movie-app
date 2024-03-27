@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import { useFilmsStore } from "@/store/useFilms";
-import { useScreenStore } from "@/store/useScreen";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSlidesPerViewLike } from "@/hooks/useScreens";
-import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
+import { useScreenStore } from "@/store/useScreen";
 import "swiper/css";
-
-const filmsStore = useFilmsStore();
-const screenStore = useScreenStore();
 
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSlidesPerViewLike();
+const filmsStore = useFilmsStore();
+const screenStore = useScreenStore();
 
 const removeFromCurrentlyWatching = (index: number) => {
   const filmToRemove = filmsStore.currentlyWatching[index];
@@ -23,16 +21,11 @@ const removeFromCurrentlyWatching = (index: number) => {
   }
   filmsStore.removeCurrently(index);
 };
-
 const screenSize = computed(() => {
   if (screenStore.platform === "desktop" || screenStore.platform === "tablet") {
     return "flex flex-col justify-items-start gap-10 w-2/5 h-96";
   }
-  if (
-    screenStore.platform === "tablet2" ||
-    screenStore.platform === "mobile" ||
-    screenStore.platform === "mobile2"
-  ) {
+  if (screenStore.platform === "mobile2") {
     return "flex flex-col justify-items-start gap-10 w-full h-96";
   }
 });
@@ -63,7 +56,7 @@ onMounted(() => {
           class="flex flex-col items-center w-44 h-64 relative"
         >
           <div
-            class="w-44 h-72 rounded-xl cursor-pointer relative flex items-center justify-center overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
+            class="relative flex items-center justify-center h-72 overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
             @click.stop="handleCardClick(item.kinopoiskId)"
           >
             <img :src="item.posterUrl" alt="img" class="w-44 h-64 rounded-xl" />

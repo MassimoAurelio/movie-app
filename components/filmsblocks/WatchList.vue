@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { useFilmsStore } from "@/store/useFilms";
-import { useScreenStore } from "@/store/useScreen";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSliderPerViewWatchList } from "@/hooks/useScreens";
 import { useScreenSizeWatchList } from "@/hooks/useScreenSize";
-import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
+const { handleCardClick } = useHandleCardClick();
+const { slidesPerView } = useSliderPerViewWatchList();
+const { screenSize } = useScreenSizeWatchList();
 import "swiper/css";
 
 
 const filmsStore = useFilmsStore();
-const { handleCardClick } = useHandleCardClick();
-const { slidesPerView } = useSliderPerViewWatchList();
-const { screenSize } = useScreenSizeWatchList();
 
 onMounted(() => {
   filmsStore.loadWatchlist();
@@ -37,7 +35,7 @@ onMounted(() => {
           :key="item.kinopoiskId"
         >
           <div
-            class="w-44 h-72 rounded-xl cursor-pointer relative flex items-center justify-center overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
+            class="relative flex items-center justify-center h-72 overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
             @click.stop="handleCardClick(item.kinopoiskId)"
           >
             <NuxtImg
@@ -51,7 +49,7 @@ onMounted(() => {
     </div>
     <div v-else class="flex flex-row gap-5">
       <div
-        class="w-44 h-72 rounded-xl cursor-pointer relative flex items-center justify-center overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
+        class="relative flex items-center justify-center h-72 overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"
         v-for="item in filmsStore.watchlist"
         :key="item.kinopoiskId"
         @click="handleCardClick(item.kinopoiskId)"

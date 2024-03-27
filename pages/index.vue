@@ -7,7 +7,6 @@ useSeoMeta({
 });
 
 const authStore = useUserStore();
-const isLoadingStore = useIsLoadingStore();
 const router = useRouter();
 
 const screenStore = useScreenStore();
