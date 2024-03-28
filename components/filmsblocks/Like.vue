@@ -2,18 +2,12 @@
 import { useFilmsStore } from "@/store/useFilms";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
-<<<<<<< HEAD
 import { useSlidesPerViewLike } from "@/hooks/useScreens";
-import { useScreenStore } from "@/store/useScreen";
-=======
-import { useSlidesPerViewLike, getScreenSize } from "@/hooks/useScreens";
->>>>>>> 44282b62e4b98c1ef355f3af0e75c9c63accf5f0
 import "swiper/css";
 
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSlidesPerViewLike();
 const filmsStore = useFilmsStore();
-<<<<<<< HEAD
 const screenStore = useScreenStore();
 
 const removeFromCurrentlyWatching = (index: number) => {
@@ -34,9 +28,7 @@ const screenSize = computed(() => {
     return "flex flex-col justify-items-start gap-10 w-full h-96";
   }
 });
-=======
-const screenSize = getScreenSize();
->>>>>>> 44282b62e4b98c1ef355f3af0e75c9c63accf5f0
+
 
 onMounted(() => {
   filmsStore.loadCurrentlyWatching();
