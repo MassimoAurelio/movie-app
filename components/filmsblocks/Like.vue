@@ -10,16 +10,7 @@ const { slidesPerView } = useSlidesPerViewLike();
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
 
-const removeFromCurrentlyWatching = (index: number) => {
-  const filmToRemove = filmsStore.currentlyWatching[index];
-  const filmInStore = filmsStore.films.find(
-    (f) => f.nameRu === filmToRemove.nameRu
-  );
-  if (filmInStore) {
-    filmInStore.isFavorite = false;
-  }
-  filmsStore.removeCurrently(index);
-};
+
 const screenSize = computed(() => {
   if (screenStore.platform === "desktop" || screenStore.platform === "tablet") {
     return "flex flex-col justify-items-start gap-10 w-2/5 h-96";

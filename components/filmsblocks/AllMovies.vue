@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useFilmsStore } from "@/store/useFilms";
-import { useIsLoadingStore } from "@/store/auth.store";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSliderPerViewAllMovies } from "@/hooks/useScreens";
@@ -9,10 +8,9 @@ import "swiper/css";
 const filmsStore = useFilmsStore();
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSliderPerViewAllMovies();
-const isLoadingStore = useIsLoadingStore();
+
 
 const fetchPreviosly = async () => {
-  isLoadingStore.set(true);
   try {
     const response = await fetch(
       "https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_ALL&page=1",
@@ -31,7 +29,6 @@ const fetchPreviosly = async () => {
   } catch (error) {
     console.error("WARNING:", error);
   }
-  isLoadingStore.set(false);
 };
 
 const heartFilled = (film: IFilms) =>
@@ -60,8 +57,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <LayoutLoader v-if="isLoadingStore.isLoading" />
-  <div v-else class="flex flex-col gap-10">
+  <div class="flex flex-col gap-10">
     <h4 class="scroll-m-20 text-xl font-semibold tracking-tight">
       Suggested To Watch
     </h4>

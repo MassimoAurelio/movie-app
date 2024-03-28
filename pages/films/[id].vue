@@ -2,22 +2,36 @@
 import { useFilmsStore } from "@/store/useFilms";
 import { useScreenStore } from "@/store/useScreen";
 import { useAddToWatchList } from "@/hooks/useAddTo";
-import { useIsLoadingStore } from "@/store/auth.store";
-import ScrollPanel from "primevue/scrollpanel";
 
+import ScrollPanel from "primevue/scrollpanel";
+const film = computed(() => filmsStore.dynamic.nameRu);
 const route = useRoute();
 const kinopoiskId = Number(route.params.id);
-
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
-const isLoadingStore = useIsLoadingStore();
 const { addToWatchList } = useAddToWatchList();
-
-const film = computed(() => filmsStore.dynamic.nameRu);
 
 useSeoMeta({
   title: film,
 });
+
+const dinamicPage = async (kinopoiskId: number) => {
+  try {
+    filmsStore.setLoading(true);
+    const url = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${kinopoiskId}`;
+    const response = await fetch(url, {
+      headers: {
+        "X-API-KEY": "8b810c06-cb08-4b64-bc65-de7d7951285a",
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    filmsStore.setDynamic(data);
+    filmsStore.setLoading(false);
+  } catch (error) {
+    console.error("WARNING:", error);
+  }
+};
 
 const screenSize = computed(() => {
   if (screenStore.platform === "desktop" || screenStore.platform === "tablet") {
@@ -38,36 +52,13 @@ const isInWatchlist = computed(
     filmsStore.watchlist.some((f) => f.nameRu === filmsStore.dynamic.nameRu)
 );
 
-const dinamicPage = async (kinopoiskId: number) => {
-  isLoadingStore.set(true);
-  try {
-    filmsStore.setLoading(true);
-    const url = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${kinopoiskId}`;
-    const response = await fetch(url, {
-      headers: {
-        "X-API-KEY": "8b810c06-cb08-4b64-bc65-de7d7951285a",
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    filmsStore.setDynamic(data);
-    filmsStore.setLoading(false);
-  } catch (error) {
-    console.error("WARNING:", error);
-  } finally {
-    isLoadingStore.set(false);
-  }
-};
 onMounted(() => {
   dinamicPage(kinopoiskId);
 });
 </script>
 
 <template>
-  <div
-    class="relative flex flex-col gap-14"
-    v-if="!filmsStore.loading"
-  >
+  <div class="relative flex flex-col gap-14" v-if="!filmsStore.loading">
     <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
       {{ filmsStore.dynamic.nameRu }}
     </h1>

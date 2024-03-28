@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
-
-const isAuthStore = useUserStore();
-const isLoadingStore = useIsLoadingStore();
 const router = useRouter();
-if (!isAuthStore.isAuthenticated) {
+/* if (!isAuthStore.isAuthenticated) {
   router.push("/login");
-}
+} */
 </script>
 
 <template>
-  <section style="min-height: 100vh">
-    <!-- <LayoutLoader v-if="isLoadingStore.isLoading" /> -->
+  <section style="min-height: 100vh overflow-x-hidden">
     <div class="main-container">
-      <LayoutHeader v-if="isAuthStore.isAuthenticated" />
+      <LayoutHeader />
       <slot />
     </div>
-    <LayoutFooter v-if="isAuthStore.isAuthenticated" />
+    <LayoutFooter />
   </section>
 </template>
 

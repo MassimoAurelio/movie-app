@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
 
 useSeoMeta({
   title: "Login",
 });
 
-const authStore = useUserStore();
-const isLoadingStore = useIsLoadingStore();
+/* const authStore = useUserStore(); */
+
 const router = useRouter();
 
 const email = ref("");
 const password = ref("");
 
-const fetchFromMyServer = async () => {
-  isLoadingStore.set(true);
+/* const fetchFromMyServer = async () => {
+
   try {
     const userData = {
       username: email.value,
@@ -40,9 +39,8 @@ const fetchFromMyServer = async () => {
     console.log(data);
   } catch (error) {
     console.log(error);
-    isLoadingStore.set(false);
+  } finally {
   }
-  isLoadingStore.set(false);
 };
 
 onBeforeMount(() => {
@@ -53,11 +51,10 @@ onBeforeMount(() => {
   } else {
     authStore.isAuthenticated = false;
   }
-});
+}); */
 </script>
 
 <template>
-  <!--  <LayoutLoader v-if="isLoadingStore.isLoading" /> -->
   <div
     class="flex flex-col items-center justify-center min-h-screen w-full gap-5 overflow-x-hidden"
   >
@@ -83,7 +80,7 @@ onBeforeMount(() => {
         />
       </div>
       <div class="pt-3">
-        <UiButton type="button" class="w-full" @click="fetchFromMyServer"
+        <UiButton type="button" class="w-full"
           >Login</UiButton
         >
       </div>

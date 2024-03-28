@@ -1,19 +1,15 @@
 <script setup lang="ts">
-import { useUserStore, useIsLoadingStore } from "@/store/auth.store";
-
 useSeoMeta({
   title: "Registration",
 });
 
-const isLoadingStore = useIsLoadingStore();
 const authStore = useUserStore();
 const router = useRouter();
 
 const email = ref("");
 const password = ref("");
 
-const registration = async () => {
-  isLoadingStore.set(true);
+/* const registration = async () => {
   try {
     const userData = {
       username: email.value,
@@ -39,19 +35,18 @@ const registration = async () => {
     console.log(data);
   } catch (e) {
     console.log(e);
-  } finally {
-    isLoadingStore.set(false);
-  }
+  }  
 };
+*/
 
 onBeforeMount(() => {
-  const token = localStorage.getItem("token");
+  /* const token = localStorage.getItem("token");
   if (token) {
     authStore.isAuthenticated = true;
     router.push("/");
   } else {
     authStore.isAuthenticated = false;
-  }
+  } */
 });
 </script>
 
@@ -81,9 +76,7 @@ onBeforeMount(() => {
         />
       </div>
       <div class="pt-3">
-        <UiButton type="button" class="w-full" @click="registration"
-          >Registration</UiButton
-        >
+        <UiButton type="button" class="w-full">Registration</UiButton>
       </div>
 
       <div class="text-xs pt-2">
