@@ -64,7 +64,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative flex flex-col gap-14" v-if="!filmsStore.loading">
+  <div
+    class="relative flex flex-col gap-14"
+    v-if="!filmsStore.loading"
+  >
     <h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
       {{ filmsStore.dynamic.nameRu }}
     </h1>

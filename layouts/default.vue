@@ -11,7 +11,7 @@ if (!isAuthStore.isAuthenticated) {
 
 <template>
   <section style="min-height: 100vh">
-    <LayoutLoader v-if="isLoadingStore.isLoading" />
+    <!-- <LayoutLoader v-if="isLoadingStore.isLoading" /> -->
     <div class="main-container">
       <LayoutHeader v-if="isAuthStore.isAuthenticated" />
       <slot />
