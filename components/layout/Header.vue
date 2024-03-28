@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { useScreenStore } from "@/store/useScreen";
 import { useFilmsStore } from "@/store/useFilms";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useScreenHeader } from "@/hooks/useScreenSize";
 
-const screenStore = useScreenStore();
-const filmsStore = useFilmsStore();
-
 const { handleCardClick } = useHandleCardClick();
 const { searchSize } = useScreenHeader();
+const filmsStore = useFilmsStore();
 </script>
 
 <template>

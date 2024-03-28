@@ -3,56 +3,17 @@ useSeoMeta({
   title: "Registration",
 });
 
-const authStore = useUserStore();
-const router = useRouter();
+definePageMeta({
+  layout: "un-auth",
+});
 
 const email = ref("");
 const password = ref("");
-
-/* const registration = async () => {
-  try {
-    const userData = {
-      username: email.value,
-      password: password.value,
-    };
-
-    const response = await fetch("http://localhost:5000/auth/registration", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      authStore.setAuthenticated(true);
-      await router.push("/");
-    } else {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    console.log(data);
-  } catch (e) {
-    console.log(e);
-  }  
-};
-*/
-
-onBeforeMount(() => {
-  /* const token = localStorage.getItem("token");
-  if (token) {
-    authStore.isAuthenticated = true;
-    router.push("/");
-  } else {
-    authStore.isAuthenticated = false;
-  } */
-});
 </script>
 
 <template>
   <div
-    class="flex flex-col items-center justify-center min-h-screen w-full gap-5"
+    class="flex flex-col items-center justify-center min-h-screen w-full gap-5 overflow-x-hidden"
   >
     <h1
       class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl"

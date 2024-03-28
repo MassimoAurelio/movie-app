@@ -26,6 +26,7 @@ export const useFilmsStore = defineStore({
   actions: {
     //films
     setFilms(films: IFilms[]) {
+      console.log(films);
       this.films = films;
     },
 
@@ -157,6 +158,21 @@ export const useFilmsStore = defineStore({
       computed(() =>
         this.currentlyWatching.some((f) => f.nameRu === film.nameRu)
       );
+    },
+
+    addToFavorites(index: number, film: any) {
+      const isAlreadyAdded = this.currentlyWatching.some(
+        (f) => f.nameRu === film.nameRu
+      );
+
+      if (!isAlreadyAdded) {
+        this.addToCurrentlyWatching(index, film);
+      } else {
+        const filmIndex = this.currentlyWatching.findIndex(
+          (f) => f.nameRu === film.nameRu
+        );
+        this.removeCurrently(filmIndex);
+      }
     },
   },
 });

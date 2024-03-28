@@ -4,13 +4,13 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSliderPerViewWatchList } from "@/hooks/useScreens";
 import { useScreenSizeWatchList } from "@/hooks/useScreenSize";
+import "swiper/css";
+
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSliderPerViewWatchList();
 const { screenSize } = useScreenSizeWatchList();
-import "swiper/css";
-
-
 const filmsStore = useFilmsStore();
+
 
 onMounted(() => {
   filmsStore.loadWatchlist();

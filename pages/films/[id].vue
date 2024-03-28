@@ -2,8 +2,8 @@
 import { useFilmsStore } from "@/store/useFilms";
 import { useScreenStore } from "@/store/useScreen";
 import { useAddToWatchList } from "@/hooks/useAddTo";
-
 import ScrollPanel from "primevue/scrollpanel";
+
 const film = computed(() => filmsStore.dynamic.nameRu);
 const route = useRoute();
 const kinopoiskId = Number(route.params.id);

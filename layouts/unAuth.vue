@@ -2,10 +2,8 @@
 <template>
   <section style="min-height: 100vh">
     <div class="main-container">
-      <LayoutHeader />
       <slot />
     </div>
-    <LayoutFooter />
   </section>
 </template>
 

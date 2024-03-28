@@ -6,15 +6,8 @@ useSeoMeta({
   title: "Main Page",
 });
 
-
 const screenStore = useScreenStore();
 const { screenZoom } = useScreenZoom();
-
-/* function logout() {
-  localStorage.removeItem("token");
-  authStore.setAuthenticated(false);
-  router.push("/login");
-} */
 </script>
 
 <template>

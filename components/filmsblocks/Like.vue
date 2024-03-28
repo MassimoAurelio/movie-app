@@ -4,7 +4,6 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSlidesPerViewLike } from "@/hooks/useScreens";
 import "swiper/css";
-
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSlidesPerViewLike();
 const filmsStore = useFilmsStore();
