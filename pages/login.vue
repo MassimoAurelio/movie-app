@@ -57,9 +57,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
- <!--  <LayoutLoader v-if="isLoadingStore.isLoading" /> -->
+  <!--  <LayoutLoader v-if="isLoadingStore.isLoading" /> -->
   <div
-    class="flex flex-col items-center justify-center min-h-screen w-full gap-5"
+    class="flex flex-col items-center justify-center min-h-screen w-full gap-5 overflow-x-hidden"
   >
     <h1
       class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl"
