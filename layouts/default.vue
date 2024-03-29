@@ -1,10 +1,10 @@
 <template>
   <section style="min-height: 100vh">
     <div class="main-container">
-      <LayoutHeader />
+      <LazyLayoutHeader />
       <slot />
     </div>
-    <LayoutFooter />
+    <LazyLayoutFooter />
   </section>
 </template>
 

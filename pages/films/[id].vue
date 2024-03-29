@@ -10,9 +10,7 @@ const kinopoiskId = Number(route.params.id);
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
 const { addToWatchList } = useAddToWatchList();
-const {
-  public: { apiKey },
-} = useRuntimeConfig();
+const key = useRuntimeConfig().public.apiKey;
 
 useSeoMeta({
   title: film,
@@ -23,7 +21,7 @@ const dinamicPage = async (kinopoiskId: number) => {
     filmsStore.setLoading(true);
     const response = await fetch(FILM_BY_ID_URL(kinopoiskId), {
       headers: {
-        "X-API-KEY": process.env.APIKEY,
+        "X-API-KEY": key,
         "Content-Type": "application/json",
       },
     });

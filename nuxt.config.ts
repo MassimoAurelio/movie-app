@@ -29,7 +29,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-     
+      apiKey: process.env.APIKEY || "",
     },
     app: {
       apiKey: process.env.APIKEY || "",
