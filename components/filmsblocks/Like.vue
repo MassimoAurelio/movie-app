@@ -3,12 +3,12 @@ import { useFilmsStore } from "@/store/useFilms";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSlidesPerViewLike } from "@/hooks/useScreens";
-import "swiper/css";
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSlidesPerViewLike();
+import "swiper/css";
+
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
-
 
 const screenSize = computed(() => {
   if (screenStore.platform === "desktop" || screenStore.platform === "tablet") {
@@ -18,7 +18,6 @@ const screenSize = computed(() => {
     return "flex flex-col justify-items-start gap-10 w-full h-96";
   }
 });
-
 
 onMounted(() => {
   filmsStore.loadCurrentlyWatching();

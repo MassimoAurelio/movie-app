@@ -1,4 +1,3 @@
-
 <template>
   <section style="min-height: 100vh">
     <div class="main-container">

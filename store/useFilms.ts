@@ -26,7 +26,7 @@ export const useFilmsStore = defineStore({
   actions: {
     //films
     setFilms(films: IFilms[]) {
-      console.log(films);
+     
       this.films = films;
     },
 

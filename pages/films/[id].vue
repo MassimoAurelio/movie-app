@@ -3,13 +3,16 @@ import { useFilmsStore } from "@/store/useFilms";
 import { useScreenStore } from "@/store/useScreen";
 import { useAddToWatchList } from "@/hooks/useAddTo";
 import ScrollPanel from "primevue/scrollpanel";
-
+import { FILM_BY_ID_URL } from "@/utils/endpoints";
 const film = computed(() => filmsStore.dynamic.nameRu);
 const route = useRoute();
 const kinopoiskId = Number(route.params.id);
 const filmsStore = useFilmsStore();
 const screenStore = useScreenStore();
 const { addToWatchList } = useAddToWatchList();
+const {
+  public: { apiKey },
+} = useRuntimeConfig();
 
 useSeoMeta({
   title: film,
@@ -18,10 +21,9 @@ useSeoMeta({
 const dinamicPage = async (kinopoiskId: number) => {
   try {
     filmsStore.setLoading(true);
-    const url = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${kinopoiskId}`;
-    const response = await fetch(url, {
+    const response = await fetch(FILM_BY_ID_URL(kinopoiskId), {
       headers: {
-        "X-API-KEY": "8b810c06-cb08-4b64-bc65-de7d7951285a",
+        "X-API-KEY": process.env.APIKEY,
         "Content-Type": "application/json",
       },
     });

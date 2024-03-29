@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
@@ -12,10 +11,6 @@ export default defineNuxtConfig({
   ],
   shadcn: {
     prefix: "Ui",
-    /**
-     * Directory that the component lives in.
-     * @default "./components/ui"
-     */
     componentDir: "./components/ui",
   },
   pinia: {
@@ -30,6 +25,14 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: ["/", "/films"],
+    },
+  },
+  runtimeConfig: {
+    public: {
+     
+    },
+    app: {
+      apiKey: process.env.APIKEY || "",
     },
   },
 });

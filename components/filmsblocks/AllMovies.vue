@@ -3,44 +3,21 @@ import { useFilmsStore } from "@/store/useFilms";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSliderPerViewAllMovies } from "@/hooks/useScreens";
-import { useFetch } from "@vueuse/core";
+import {TOP_POPULAR_FILMS_URL } from "@/utils/endpoints";
 import "swiper/css";
 
 const filmsStore = useFilmsStore();
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSliderPerViewAllMovies();
 
-const fetchData = async () => {
+const fetchPreviosly = async () => {
   try {
-    const { data, error } = await useFetch<any>(
-      "https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_ALL&page=1",
-      {
-        headers: {
-          "X-API-KEY": "8b810c06-cb08-4b64-bc65-de7d7951285a",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const { items } = data.value;
-    filmsStore.setFilms(items);
-    console.log(data.value);
-  } catch (error) {
-    console.error("WARNING:", error);
-  }
-};
-
-/* const fetchPreviosly = async () => {
-  try {
-    const response = await fetch(
-      "https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_ALL&page=1",
-      {
-        headers: {
-          "X-API-KEY": "8b810c06-cb08-4b64-bc65-de7d7951285a",
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(TOP_POPULAR_FILMS_URL, {
+      headers: {
+        "X-API-KEY": "8b810c06-cb08-4b64-bc65-de7d7951285a",
+        "Content-Type": "application/json",
+      },
+    });
     const { items } = await response.json();
     const filterData = items.filter(
       (item: { nameRu: string | null }) => item.nameRu !== null
@@ -49,7 +26,7 @@ const fetchData = async () => {
   } catch (error) {
     console.error("WARNING:", error);
   }
-}; */
+};
 
 const heartFilled = (film: IFilms) =>
   computed(() =>
@@ -57,8 +34,7 @@ const heartFilled = (film: IFilms) =>
   );
 
 onMounted(() => {
-  fetchData();
-  /*   fetchPreviosly(); */
+  fetchPreviosly();
 });
 </script>
 
@@ -77,7 +53,7 @@ onMounted(() => {
         <SwiperSlide
           class="relative"
           v-for="(item, index) in filmsStore.films"
-          :key="item.nameRu"
+          :key="item.kinopoiskId"
         >
           <div
             class="relative flex items-center justify-center h-72 overflow-hidden transition-transform transform hover:scale-105 hover:brightness-50"

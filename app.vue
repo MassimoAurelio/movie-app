@@ -1,25 +1,24 @@
 <script setup lang="ts">
-import { useScreenStore } from '@/store/useScreen'
+import { useScreenStore } from "@/store/useScreen";
 
-
-const screenStore = useScreenStore()
-const { setPlatform } = screenStore
+const screenStore = useScreenStore();
+const { setPlatform } = screenStore;
 
 const onResize = () => {
-  setPlatform(window.innerWidth)
-}
+  setPlatform(window.innerWidth);
+};
 
 onMounted(() => {
-  window.addEventListener("resize", onResize)
-})
+  window.addEventListener("resize", onResize);
+});
 
 onUnmounted(() => {
-  window.removeEventListener("resize", onResize)
-})
+  window.removeEventListener("resize", onResize);
+});
 </script>
 
-
 <template>
+  <NuxtLoadingIndicator />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
