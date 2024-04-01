@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
+    "@nuxt/test-utils/module",
     "nuxt-primevue",
     "@nuxt/image",
     "@nuxt/content",
@@ -30,6 +31,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiKey: process.env.APIKEY || "",
+      
     },
     app: {
       apiKey: process.env.APIKEY || "",

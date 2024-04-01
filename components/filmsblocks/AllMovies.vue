@@ -4,20 +4,21 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { useHandleCardClick } from "@/hooks/useHandleCardClick";
 import { useSliderPerViewAllMovies } from "@/hooks/useScreens";
 import { TOP_POPULAR_FILMS_URL } from "@/utils/endpoints";
+import { headers } from "@/hooks/header";
 import "swiper/css";
 
-const key = useRuntimeConfig().public.apiKey;
-const filmsStore = useFilmsStore();
 const { handleCardClick } = useHandleCardClick();
 const { slidesPerView } = useSliderPerViewAllMovies();
 
+const filmsStore = useFilmsStore();
+const key = useRuntimeConfig().public.apiKey;
+
+
 const fetchPreviosly = async () => {
   try {
+    headers["X-API-KEY"] = key;
     const response = await fetch(TOP_POPULAR_FILMS_URL, {
-      headers: {
-        "X-API-KEY": key,
-        "Content-Type": "application/json",
-      },
+      headers: headers,
     });
     const { items } = await response.json();
     const filterData = items.filter(

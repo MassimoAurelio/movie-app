@@ -6,8 +6,10 @@ definePageMeta({
   layout: "un-auth",
 });
 
-const email = ref("");
-const password = ref("");
+const form = {
+  email: "",
+  password: "",
+};
 </script>
 
 <template>
@@ -23,13 +25,13 @@ const password = ref("");
     <form>
       <div class="pt-3">
         <UiInput
-          v-model="email"
+          v-model="form.email"
           placeholder="Email"
           type="email"
           class="mb-3"
         />
         <UiInput
-          v-model="password"
+          v-model="form.email"
           placeholder="Password"
           type="password"
           class="mb-3"

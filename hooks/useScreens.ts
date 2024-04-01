@@ -5,6 +5,8 @@ const { platform } = storeToRefs(screenStore);
 
 //LIKE
 export function useSlidesPerViewLike() {
+  const screenStore = useScreenStore();
+  const { platform } = storeToRefs(screenStore);
 
   const slidesPerView = computed(() => {
     switch (platform.value) {
@@ -46,8 +48,6 @@ export function getScreenSize() {
 //ALLMOVIES
 
 export function useSliderPerViewAllMovies() {
-
-
   const slidesPerView = computed(() => {
     switch (platform.value) {
       case "desktop":
@@ -69,7 +69,6 @@ export function useSliderPerViewAllMovies() {
 
 //WatchList
 export function useSliderPerViewWatchList() {
-
   const slidesPerView = computed(() => {
     switch (platform.value) {
       case "desktop":

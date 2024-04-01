@@ -4,26 +4,25 @@ import { useScreenStore } from "@/store/useScreen";
 import { useAddToWatchList } from "@/hooks/useAddTo";
 import ScrollPanel from "primevue/scrollpanel";
 import { FILM_BY_ID_URL } from "@/utils/endpoints";
+import { headers } from "@/hooks/header";
+
 const film = computed(() => filmsStore.dynamic.nameRu);
 const route = useRoute();
-const kinopoiskId = Number(route.params.id);
 const filmsStore = useFilmsStore();
-const screenStore = useScreenStore();
 const { addToWatchList } = useAddToWatchList();
-const key = useRuntimeConfig().public.apiKey;
 
 useSeoMeta({
   title: film,
 });
 
+const key = useRuntimeConfig().public.apiKey;
+
 const dinamicPage = async (kinopoiskId: number) => {
   try {
+    headers["X-API-KEY"] = key;
     filmsStore.setLoading(true);
     const response = await fetch(FILM_BY_ID_URL(kinopoiskId), {
-      headers: {
-        "X-API-KEY": key,
-        "Content-Type": "application/json",
-      },
+      headers: headers,
     });
     const data = await response.json();
     filmsStore.setDynamic(data);
@@ -33,17 +32,21 @@ const dinamicPage = async (kinopoiskId: number) => {
   }
 };
 
+const screenStore = useScreenStore();
+
 const screenSize = computed(() => {
-  if (screenStore.platform === "desktop" || screenStore.platform === "tablet") {
-    return "flex flex-row item-center gap-3 w-full";
-  }
-  if (
-    screenStore.platform === "tablet2" ||
-    screenStore.platform === "mobile" ||
-    screenStore.platform === "mobile2"
-  ) {
-    return "flex flex-col item-center gap-3 w-full";
-  }
+  const platformStyles = {
+    desktop: "flex flex-row item-center gap-3 w-full",
+    tablet: "flex flex-row item-center gap-3 w-full",
+    tablet2: "flex flex-col item-center gap-3 w-full",
+    mobile: "flex flex-col item-center gap-3 w-full",
+    mobile2: "flex flex-col item-center gap-3 w-full",
+  };
+
+  return (
+    platformStyles[screenStore.platform] ||
+    "flex flex-col item-center gap-3 w-full"
+  );
 });
 
 const isInWatchlist = computed(
@@ -52,6 +55,7 @@ const isInWatchlist = computed(
     filmsStore.watchlist.some((f) => f.nameRu === filmsStore.dynamic.nameRu)
 );
 
+const kinopoiskId = Number(route.params.id);
 onMounted(() => {
   dinamicPage(kinopoiskId);
 });
@@ -75,7 +79,7 @@ onMounted(() => {
           <div class="flex flex-row w-96" v-if="filmsStore.dynamic.genres">
             <div
               v-for="(genre, index) in filmsStore.dynamic.genres.slice(0, 1)"
-              :key="index"
+              :key="`genre-${index}`"
               class="w-32"
             >
               <UiButton variant="outline" class="rounded-3xl">
