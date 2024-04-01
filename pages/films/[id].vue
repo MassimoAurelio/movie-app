@@ -17,6 +17,7 @@ useSeoMeta({
 
 const key = useRuntimeConfig().public.apiKey;
 
+
 const dinamicPage = async (kinopoiskId: number) => {
   try {
     headers["X-API-KEY"] = key;

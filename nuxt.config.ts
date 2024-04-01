@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiKey: process.env.APIKEY || "",
-      
+      baseUrl: process.env.KINOPOISK_API_BASE_URL || "",
     },
     app: {
       apiKey: process.env.APIKEY || "",
